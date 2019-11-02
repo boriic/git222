@@ -1,0 +1,5 @@
+C:\Users\Filip\source\repos\MonoProject\MonoProject.DAL\bin\Debug\MonoProject.DAL.dll
+C:\Users\Filip\source\repos\MonoProject\MonoProject.DAL\bin\Debug\MonoProject.DAL.pdb
+C:\Users\Filip\source\repos\MonoProject\MonoProject.DAL\obj\Debug\MonoProject.DAL.csprojAssemblyReference.cache
+C:\Users\Filip\source\repos\MonoProject\MonoProject.DAL\obj\Debug\MonoProject.DAL.dll
+C:\Users\Filip\source\repos\MonoProject\MonoProject.DAL\obj\Debug\MonoProject.DAL.pdb
