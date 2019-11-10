@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29409.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoProject.MVC", "MonoProject\MonoProject.MVC.csproj", "{4FCED320-F701-406D-A64B-D65D858120C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoProject.DAL", "MonoProject.DAL\MonoProject.DAL.csproj", "{615A11A9-E0BA-4094-8E6A-6F81D5F199D3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoProject.Service", "MonoProject.Service\MonoProject.Service.csproj", "{DDCCA44D-7309-4224-BF54-FB4448336DCF}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{4FCED320-F701-406D-A64B-D65D858120C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FCED320-F701-406D-A64B-D65D858120C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FCED320-F701-406D-A64B-D65D858120C6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{615A11A9-E0BA-4094-8E6A-6F81D5F199D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{615A11A9-E0BA-4094-8E6A-6F81D5F199D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{615A11A9-E0BA-4094-8E6A-6F81D5F199D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{615A11A9-E0BA-4094-8E6A-6F81D5F199D3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DDCCA44D-7309-4224-BF54-FB4448336DCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DDCCA44D-7309-4224-BF54-FB4448336DCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDCCA44D-7309-4224-BF54-FB4448336DCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
