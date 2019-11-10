@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MonoProject.Service
 {
-public class VehicleModelEntity
+    public class VehicleModelEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using PagedList;
 using System.Web.Mvc;
+using MonoProject.Service.Services.Common;
+using MonoProject.Service.Models.Parameters_Models;
 
 namespace MonoProject.Service
 {
 
-    public class VehicleMakeService
+    public class VehicleMakeService : IVehicleMakeService
     {
         /// <summary>
         /// ADDING VEHICLE MAKE
@@ -38,37 +40,41 @@ namespace MonoProject.Service
             }
         }
 
-        public List<VehicleMakeEntity> GetVehicleMakes(string search, string sortOrder)
+        public List<VehicleMakeEntity> GetVehicleMakes(SortParameters sort, FilterParameters filter)
         {
-            List<VehicleMakeEntity> vehicleMakes;
+            IQueryable<VehicleMakeEntity> vehicleMakes;
             using (var ctx = new Context())
             {
-                if(!string.IsNullOrEmpty(search))
+                //Search
+                if(!string.IsNullOrEmpty(filter.Search))
                 {
-                    vehicleMakes = ctx.VehicleMakes.Where(s => s.Name.ToUpper().StartsWith(search.ToUpper())).ToList();
+                    vehicleMakes = ctx.VehicleMakes.Where(s => s.Name.ToUpper().StartsWith(filter.Search.ToUpper())).AsQueryable();
                 }
                 else
                 {
-                    vehicleMakes = ctx.VehicleMakes.ToList();
+                    vehicleMakes = ctx.VehicleMakes.AsQueryable();
                 }
-                switch (sortOrder.ToUpper())
+
+                //OrderBy
+                switch (sort.SortBy.ToUpper())
                 {                 
-                    case "Z-A":
-                        vehicleMakes = vehicleMakes.OrderByDescending(s => s.Name).ToList();
+                    case "Name":
+                        vehicleMakes = vehicleMakes.OrderBy(s => s.Name).AsQueryable();
                         break;
-                    case "NEWEST":
-                        vehicleMakes = vehicleMakes.OrderByDescending(s => s.Id).ToList();
-                        break;
-                    case "OLDEST":
-                        vehicleMakes = vehicleMakes.OrderBy(s => s.Id).ToList();
-                        break;
-                    case "A-Z":
-                        vehicleMakes = vehicleMakes.OrderBy(s => s.Name).ToList();
+                    case "Id":
+                        vehicleMakes = vehicleMakes.OrderBy(s => s.Id).AsQueryable();
                         break;
                     default:
                         break;
                 }
-                return vehicleMakes;
+
+                //OrderDirection
+                if(sort.SortOrder.ToUpper() == "DESC")
+                {
+                    vehicleMakes = vehicleMakes.Reverse();
+                }
+
+                return vehicleMakes.ToList();
             }
            
         }

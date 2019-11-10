@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using MonoProject.Service;
 using PagedList;
 using PagedList.Mvc;
+using MonoProject.Service.Models.Parameters_Models;
 
 namespace MonoProject.Controllers
 {
@@ -18,8 +19,6 @@ namespace MonoProject.Controllers
         public ActionResult Index(string sortOrder, string currentFilter, string search, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
             if (search != null)
             {
                 page = 1;
@@ -55,7 +54,7 @@ namespace MonoProject.Controllers
         [HttpGet]
         public ActionResult Create ()
         {
-            ViewBag.VehicleMakeEntityId = new SelectList(makeService.GetVehicleMakes("",""), "Id", "Name");
+            ViewBag.VehicleMakeEntityId = new SelectList(makeService.GetVehicleMakes(new SortParameters { SortBy = "", SortOrder = ""}, new FilterParameters { Search = ""}), "Id", "Name");
             return View();
         }
         // POST: VehicleModels/Create
@@ -67,7 +66,7 @@ namespace MonoProject.Controllers
                 service.AddVehicleModel(vehicleModel);
                 return RedirectToAction("Index");
             }
-            ViewBag.VehicleMakeEntityId = new SelectList(makeService.GetVehicleMakes("", ""), "Id", "Name");
+            ViewBag.VehicleMakeEntityId = new SelectList(makeService.GetVehicleMakes(new SortParameters { SortBy = "", SortOrder = "" }, new FilterParameters { Search = "" }), "Id", "Name");
             return View(vehicleModel);          
         }
         // GET: VehicleModels/Edit

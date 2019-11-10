@@ -1,4 +1,5 @@
 ﻿using MonoProject.Service;
+using MonoProject.Service.Models.Parameters_Models;
 using PagedList;
 using PagedList.Mvc;
 using System;
@@ -15,27 +16,23 @@ namespace MonoProject.Controllers
         private VehicleMakeService service = new VehicleMakeService();
 
         // GET: VehicleMake
-        public ActionResult Index(string sortOrder, string currentFilter, string search, int? page)
+        public ActionResult Index(string sortOrder, string sortBy, string search, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
-            if (search != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                search = currentFilter;
-            }
-            if (sortOrder == null)
-            {
-                sortOrder = "";
-            }
             ViewBag.CurrentFilter = search;
+            ViewBag.CurrentSortBy = sortBy;
+            var filter = new FilterParameters
+            {
+                Search = search
+            };
+            var sort = new SortParameters
+            {
+                SortBy = sortBy,
+                SortOrder = sortOrder
+            };
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            return View(service.GetVehicleMakes(search, sortOrder).ToPagedList(pageNumber, pageSize));
+            return View(service.GetVehicleMakes(sort, filter).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: VehicleMakes/Details

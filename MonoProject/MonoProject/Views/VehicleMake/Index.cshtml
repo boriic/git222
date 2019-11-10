@@ -15,12 +15,14 @@
     {
         <b>Search:</b><br />
         @Html.TextBox("Search")<input type="Submit" value="Search" />@Html.ActionLink("Go to list", "Index", "VehicleMake")<br />
-        <select name="sortOrder" value="@ViewBag.CurrentSort">
+        <select name="sortBy" value="@ViewBag.CurrentSort">
             <option value="">Sort</option>
-            <option value="A-Z">Ascending</option>
-            <option value="Z-A">Descending</option>
-            <option value="Newest">Newest</option>
-            <option value="Oldest">Oldest</option>
+            <option value="Name">Name</option>
+            <option value="Id">Id</option>
+        </select>
+        <select name="sortOrder" value="@ViewBag.CurrentSortBy">
+            <option value="Asc">Ascending</option>
+            <option value="Desc">Descending</option>
         </select>
         <input type="submit" class="button1" value="Sort" />
     }

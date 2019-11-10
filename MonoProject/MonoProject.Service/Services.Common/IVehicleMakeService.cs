@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonoProject.Service.Models.Parameters_Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace MonoProject.Service.Services.Common
     {
         void AddVehicleMake(VehicleMakeEntity vehicleMake);
         VehicleMakeEntity GetVehicleMake(int id);
-        List<VehicleMakeEntity> GetVehicleMakes(string search, string sortOrder);
+        List<VehicleMakeEntity> GetVehicleMakes(SortParameters sort, FilterParameters filter);
         void UpdateVehicleMake(VehicleMakeEntity UpdateVehicleMake);
         void DeleteVehicleMake(VehicleMakeEntity vehicleMakeDelete);
     }
