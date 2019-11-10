@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Eco.Handles, Version=7.0.0.11642, Culture=neutral, PublicKeyToken=46a833be9e90de8c, processorArchitecture=MSIL">
       <HintPath>..\packages\EcoCore.7.0.0.11642\lib\net40\Eco.Handles.dll</HintPath>
     </Reference>
