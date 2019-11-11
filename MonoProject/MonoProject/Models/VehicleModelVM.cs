@@ -13,6 +13,6 @@ namespace MonoProject.Models
 
 
         public int VehicleMakeVMId { get; set; }
-        public VehicleModelVM VehicleMakeVM { get; set; }
+        public VehicleMakeVM VehicleMakeVM { get; set; }
     }
 }

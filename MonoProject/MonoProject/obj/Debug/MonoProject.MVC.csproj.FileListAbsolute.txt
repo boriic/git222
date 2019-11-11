@@ -170,3 +170,6 @@ C:\Users\Filip\Documents\Projects\MonoProject\MonoProject\obj\Debug\MonoProject.
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject\obj\Debug\MonoProject.MVC.csproj.CopyComplete
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject\obj\Debug\MonoProject.dll
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject\obj\Debug\MonoProject.pdb
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject\bin\AutoMapper.dll
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject\bin\AutoMapper.pdb
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject\bin\AutoMapper.xml

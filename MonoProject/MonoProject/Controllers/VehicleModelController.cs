@@ -8,6 +8,7 @@ using MonoProject.Service;
 using PagedList;
 using PagedList.Mvc;
 using MonoProject.Service.Models.Parameters_Models;
+using MonoProject.Models;
 
 namespace MonoProject.Controllers
 {
@@ -30,9 +31,18 @@ namespace MonoProject.Controllers
                 SortBy = sortBy,
                 SortOrder = sortOrder
             };
+            if (sort.SortBy == null)
+            {
+                sort.SortBy = "";
+            }
+            if (sort.SortOrder == null)
+            {
+                sort.SortOrder = "";
+            }
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            return View(service.GetVehicleModels(sort, filter).ToPagedList(pageNumber, pageSize));
+            var vmlist = global::AutoMapper.Mapper.Map<List<VehicleModelVM>>(service.GetVehicleModels(sort, filter));
+            return View(vmlist.ToPagedList(pageNumber, pageSize));
         }
         // GET: VehicleModels/Details
         public ActionResult Details(int? id)
@@ -41,7 +51,7 @@ namespace MonoProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            VehicleModelEntity vehicleModel = service.GetVehicleModel((int)id);
+            var vehicleModel = global::AutoMapper.Mapper.Map<VehicleModelVM>(service.GetVehicleModel((int)id));
             if (vehicleModel == null)
             {
                 return HttpNotFound();
@@ -57,11 +67,11 @@ namespace MonoProject.Controllers
         }
         // POST: VehicleModels/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Id,Name,Abrv,VehicleMakeEntityId")]VehicleModelEntity vehicleModel)
+        public ActionResult Create([Bind(Include = "Id,Name,Abrv,VehicleMakeEntityId")]VehicleModelVM vehicleModel)
         {
             if (ModelState.IsValid)
             {
-                service.AddVehicleModel(vehicleModel);
+                service.AddVehicleModel(global::AutoMapper.Mapper.Map<VehicleModelEntity>(vehicleModel));
                 return RedirectToAction("Index");
             }
             ViewBag.VehicleMakeEntityId = new SelectList(makeService.GetVehicleMakes(new SortParameters { SortBy = "", SortOrder = "" }, new FilterParameters { Search = "" }), "Id", "Name");
@@ -74,7 +84,7 @@ namespace MonoProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            VehicleModelEntity vehicleModel = service.GetVehicleModel((int)id);
+            var vehicleModel = global::AutoMapper.Mapper.Map<VehicleModelVM>(service.GetVehicleModel((int)id));
             if (vehicleModel == null)
             {
                 return HttpNotFound();
@@ -82,11 +92,11 @@ namespace MonoProject.Controllers
             return View(vehicleModel);
         }
         // POST: VehicleModels/Edit
-        public ActionResult Edit([Bind(Include = "Id,Name,Abrv")]VehicleModelEntity vehicleModel)
+        public ActionResult Edit([Bind(Include = "Id,Name,Abrv")]VehicleModelVM vehicleModel)
         {
             if (ModelState.IsValid)
             {
-                service.UpdateVehicleModel(vehicleModel);
+                service.UpdateVehicleModel(global::AutoMapper.Mapper.Map<VehicleModelEntity>(vehicleModel));
                 return RedirectToAction("Index");
             }
             return View(vehicleModel);
@@ -109,8 +119,8 @@ namespace MonoProject.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed (int? id)
         {
-            VehicleModelEntity vehicleModel = service.GetVehicleModel((int)id);
-            service.DeleteVehicleModel(vehicleModel);
+            var vehicleModel = global::AutoMapper.Mapper.Map<VehicleModelVM>(service.GetVehicleModel((int)id));
+            service.DeleteVehicleModel(global::AutoMapper.Mapper.Map<VehicleModelEntity>(vehicleModel));
             return RedirectToAction("Index");
         }
     }

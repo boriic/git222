@@ -70,6 +70,12 @@ namespace MonoProject.Service
                 return vehicleModels.ToList();
             }
         }
+
+        public object AddVehicleModel()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// UPDATE VEHICLE MODEL
         /// </summary>

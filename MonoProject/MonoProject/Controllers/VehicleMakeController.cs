@@ -1,4 +1,6 @@
-﻿using MonoProject.Service;
+﻿using AutoMapper;
+using MonoProject.Models;
+using MonoProject.Service;
 using MonoProject.Service.Models.Parameters_Models;
 using PagedList;
 using PagedList.Mvc;
@@ -30,9 +32,18 @@ namespace MonoProject.Controllers
                 SortBy = sortBy,
                 SortOrder = sortOrder
             };
+            if (sort.SortBy == null)
+            {
+                sort.SortBy = "";
+            }
+            if (sort.SortOrder == null)
+            {
+                sort.SortOrder = "";
+            }
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            return View(service.GetVehicleMakes(sort, filter).ToPagedList(pageNumber, pageSize));
+            var vmList = global::AutoMapper.Mapper.Map<List<VehicleMakeVM>>(service.GetVehicleMakes(sort, filter));
+            return View(vmList.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: VehicleMakes/Details
@@ -42,7 +53,7 @@ namespace MonoProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            VehicleMakeEntity vehicleMake = service.GetVehicleMake((int)id);
+            var vehicleMake = global::AutoMapper.Mapper.Map<VehicleMakeVM>(service.GetVehicleMake((int)id));
             if (vehicleMake == null)
             {
                 return HttpNotFound();
@@ -59,11 +70,11 @@ namespace MonoProject.Controllers
 
         // POST: VehicleMakes/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Id,Name,Abrv")]VehicleMakeEntity vehicleMake)
+        public ActionResult Create([Bind(Include = "Id,Name,Abrv")]VehicleMakeVM vehicleMake)
         {
             if(ModelState.IsValid)
             {
-                service.AddVehicleMake(vehicleMake);
+                service.AddVehicleMake(global::AutoMapper.Mapper.Map<VehicleMakeEntity>(vehicleMake));
                 return RedirectToAction("Index");
             }
             return View(vehicleMake);
@@ -76,8 +87,8 @@ namespace MonoProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            VehicleMakeEntity vehicleMake = service.GetVehicleMake((int)id);
-            if(vehicleMake == null)
+            var vehicleMake = global::AutoMapper.Mapper.Map<VehicleMakeVM>(service.GetVehicleMake((int)id));
+            if (vehicleMake == null)
             {
                 return HttpNotFound();
             }
@@ -85,11 +96,11 @@ namespace MonoProject.Controllers
         }
         // POST: VehicleMakes/Edit
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Id,Name,Abrv")] VehicleMakeEntity vehicleMake)
+        public ActionResult Edit([Bind(Include = "Id,Name,Abrv")] VehicleMakeVM vehicleMake)
         {
             if (ModelState.IsValid)
             {
-                service.UpdateVehicleMake(vehicleMake);
+                service.UpdateVehicleMake(global::AutoMapper.Mapper.Map<VehicleMakeEntity>(vehicleMake));
                 return RedirectToAction("Index");
             }
             return View(vehicleMake);
@@ -101,7 +112,7 @@ namespace MonoProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            VehicleMakeEntity vehicleMake = service.GetVehicleMake((int)id);
+            var vehicleMake = global::AutoMapper.Mapper.Map<VehicleMakeVM>(service.GetVehicleMake((int)id));
             if (vehicleMake == null)
             {
                 return HttpNotFound();
@@ -112,8 +123,8 @@ namespace MonoProject.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int? id)
         {
-            VehicleMakeEntity vehicleMake = service.GetVehicleMake((int)id);
-            service.DeleteVehicleMake(vehicleMake);
+            var vehicleMake = global::AutoMapper.Mapper.Map<VehicleMakeVM>(service.GetVehicleMake((int)id));
+            service.DeleteVehicleMake(global::AutoMapper.Mapper.Map<VehicleMakeEntity>(vehicleMake));
             return RedirectToAction("Index");
         }
     }

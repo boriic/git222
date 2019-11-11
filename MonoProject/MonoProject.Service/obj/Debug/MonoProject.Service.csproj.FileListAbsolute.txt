@@ -62,3 +62,6 @@ C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Service\obj\Debug\Mono
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Service\obj\Debug\MonoProject.Service.csproj.CopyComplete
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Service\obj\Debug\MonoProject.Service.dll
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Service\obj\Debug\MonoProject.Service.pdb
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Service\bin\Debug\AutoMapper.dll
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Service\bin\Debug\AutoMapper.pdb
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Service\bin\Debug\AutoMapper.xml
