@@ -16,25 +16,23 @@ namespace MonoProject.Controllers
         private VehicleModelService service = new VehicleModelService();
         private VehicleMakeService makeService = new VehicleMakeService();
         // GET: VehicleModel
-        public ActionResult Index(string sortOrder, string currentFilter, string search, int? page)
+        public ActionResult Index(string sortOrder, string sortBy, string search, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
-            if (search != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                search = currentFilter;
-            }
-            if (sortOrder == null)
-            {
-                sortOrder = "";
-            }
             ViewBag.CurrentFilter = search;
+            ViewBag.CurrentSortBy = sortBy;
+            var filter = new FilterParameters
+            {
+                Search = search
+            };
+            var sort = new SortParameters
+            {
+                SortBy = sortBy,
+                SortOrder = sortOrder
+            };
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            return View(service.GetVehicleModels(search, sortOrder).ToPagedList(pageNumber, pageSize));
+            return View(service.GetVehicleModels(sort, filter).ToPagedList(pageNumber, pageSize));
         }
         // GET: VehicleModels/Details
         public ActionResult Details(int? id)

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using MonoProject.Service.Models.Parameters_Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace MonoProject.Service
 {
@@ -33,35 +35,39 @@ namespace MonoProject.Service
             }
             
         }
-        public List<VehicleModelEntity> GetVehicleModels(string search, string sortOrder)
+        public List<VehicleModelEntity> GetVehicleModels(SortParameters sort, FilterParameters filter)
         {
-            List<VehicleModelEntity> vehicleModels;
+            IQueryable<VehicleModelEntity> vehicleModels;
             using (var ctx = new Context())
             {
-                if(!string.IsNullOrEmpty(search))
+                if(!string.IsNullOrEmpty(filter.Search))
                 {
-                    return ctx.VehicleModels.Where(v => v.Name.ToUpper().StartsWith(search.ToUpper())).ToList();
+                    return ctx.VehicleModels.Where(v => v.Name.ToUpper().StartsWith(filter.Search.ToUpper())).ToList();
                 }
                 else
                 {
-                    vehicleModels = ctx.VehicleModels.ToList();
+                    vehicleModels = ctx.VehicleModels.AsQueryable();
                 }
-                switch (sortOrder.ToUpper())
+
+                //ORDER BY
+                switch (sort.SortBy.ToUpper())
                 {
-                    case "Z-A":
-                        vehicleModels = vehicleModels.OrderByDescending(s => s.Name).ToList();
+                    case "Name":
+                        vehicleModels = vehicleModels.OrderBy(s => s.Name).AsQueryable();
                         break;
-                    case "A-Z":
-                        vehicleModels = vehicleModels.OrderBy(s => s.Name).ToList();
+                    case "Id":
+                        vehicleModels = vehicleModels.OrderBy(s => s.Id).AsQueryable();
                         break;
-                    case "NEWEST":
-                        vehicleModels = vehicleModels.OrderByDescending(s => s.Id).ToList();
-                        break;
-                    case "OLDEST":
-                        vehicleModels = vehicleModels.OrderBy(s => s.Id).ToList();
+                    default:
                         break;
                 }
-                return vehicleModels;
+
+                //ORDER DIRECTION
+                if (sort.SortOrder.ToUpper() == "DESC")
+                {
+                    vehicleModels = vehicleModels.Reverse();
+                }
+                return vehicleModels.ToList();
             }
         }
         /// <summary>
