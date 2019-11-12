@@ -52,20 +52,27 @@ namespace MonoProject.Service
                 //ORDER BY
                 switch (sort.SortBy.ToUpper())
                 {
-                    case "Name":
+                    case "NAME":
                         vehicleModels = vehicleModels.OrderBy(s => s.Name).AsQueryable();
                         break;
-                    case "Id":
+                    case "ID":
                         vehicleModels = vehicleModels.OrderBy(s => s.Id).AsQueryable();
                         break;
                     default:
                         break;
                 }
 
-                //ORDER DIRECTION
-                if (sort.SortOrder.ToUpper() == "DESC")
+                //OrderDirection
+                switch (sort.SortOrder.ToUpper())
                 {
-                    vehicleModels = vehicleModels.Reverse();
+                    case "ASC":
+                        vehicleModels = vehicleModels.OrderBy(s => s.Name).AsQueryable();
+                        break;
+                    case "DESC":
+                        vehicleModels = vehicleModels.OrderByDescending(s => s.Name).AsQueryable();
+                        break;
+                    default:
+                        break;
                 }
                 return vehicleModels.ToList();
             }

@@ -42,7 +42,7 @@ namespace MonoProject.Controllers
             }
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            var vmList = global::AutoMapper.Mapper.Map<List<VehicleMakeVM>>(service.GetVehicleMakes(sort, filter));
+            var vmList = Mapper.Map<List<VehicleMakeVM>>(service.GetVehicleMakes(sort, filter));
             return View(vmList.ToPagedList(pageNumber, pageSize));
         }
 
@@ -53,7 +53,7 @@ namespace MonoProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var vehicleMake = global::AutoMapper.Mapper.Map<VehicleMakeVM>(service.GetVehicleMake((int)id));
+            var vehicleMake = Mapper.Map<VehicleMakeVM>(service.GetVehicleMake((int)id));
             if (vehicleMake == null)
             {
                 return HttpNotFound();
@@ -74,20 +74,21 @@ namespace MonoProject.Controllers
         {
             if(ModelState.IsValid)
             {
-                service.AddVehicleMake(global::AutoMapper.Mapper.Map<VehicleMakeEntity>(vehicleMake));
+                service.AddVehicleMake(Mapper.Map<VehicleMakeEntity>(vehicleMake));
                 return RedirectToAction("Index");
             }
             return View(vehicleMake);
         }
 
         // GET: VehicleMakes/Edit
+        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if(id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var vehicleMake = global::AutoMapper.Mapper.Map<VehicleMakeVM>(service.GetVehicleMake((int)id));
+            var vehicleMake = Mapper.Map<VehicleMakeVM>(service.GetVehicleMake((int)id));
             if (vehicleMake == null)
             {
                 return HttpNotFound();
@@ -100,7 +101,7 @@ namespace MonoProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                service.UpdateVehicleMake(global::AutoMapper.Mapper.Map<VehicleMakeEntity>(vehicleMake));
+                service.UpdateVehicleMake(Mapper.Map<VehicleMakeEntity>(vehicleMake));
                 return RedirectToAction("Index");
             }
             return View(vehicleMake);
@@ -112,7 +113,7 @@ namespace MonoProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var vehicleMake = global::AutoMapper.Mapper.Map<VehicleMakeVM>(service.GetVehicleMake((int)id));
+            var vehicleMake = Mapper.Map<VehicleMakeVM>(service.GetVehicleMake((int)id));
             if (vehicleMake == null)
             {
                 return HttpNotFound();
@@ -123,8 +124,8 @@ namespace MonoProject.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int? id)
         {
-            var vehicleMake = global::AutoMapper.Mapper.Map<VehicleMakeVM>(service.GetVehicleMake((int)id));
-            service.DeleteVehicleMake(global::AutoMapper.Mapper.Map<VehicleMakeEntity>(vehicleMake));
+            var vehicleMake = Mapper.Map<VehicleMakeVM>(service.GetVehicleMake((int)id));
+            service.DeleteVehicleMake(Mapper.Map<VehicleMakeEntity>(vehicleMake));
             return RedirectToAction("Index");
         }
     }

@@ -58,10 +58,10 @@ namespace MonoProject.Service
                 //OrderBy
                 switch (sort.SortBy.ToUpper())
                 {                 
-                    case "Name":
+                    case "NAME":
                         vehicleMakes = vehicleMakes.OrderBy(s => s.Name).AsQueryable();
                         break;
-                    case "Id":
+                    case "ID":
                         vehicleMakes = vehicleMakes.OrderBy(s => s.Id).AsQueryable();
                         break;
                     default:
@@ -69,14 +69,19 @@ namespace MonoProject.Service
                 }
 
                 //OrderDirection
-                if(sort.SortOrder.ToUpper() == "DESC")
+                switch (sort.SortOrder.ToUpper())
                 {
-                    vehicleMakes = vehicleMakes.Reverse();
+                    case "ASC":
+                        vehicleMakes = vehicleMakes.OrderBy(s => s.Name).AsQueryable();
+                        break;
+                    case "DESC":
+                        vehicleMakes = vehicleMakes.OrderByDescending(s => s.Name).AsQueryable();
+                        break;
+                    default:
+                        break;                     
                 }
-
                 return vehicleMakes.ToList();
-            }
-           
+            }           
         }
 
         /// <summary>

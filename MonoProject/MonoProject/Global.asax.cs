@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using MonoProject.AutoMapper;
-using MonoProject.Models;
+﻿using MonoProject.Models;
 using MonoProject.Service;
 using System;
 using System.Collections.Generic;
@@ -16,10 +14,15 @@ namespace MonoProject
     {
         protected void Application_Start()
         {
+            AutoMapper.Mapper.Initialize(x =>
+            {
+                x.CreateMap<VehicleMakeVM, VehicleMakeEntity>().ReverseMap();
+                x.CreateMap<VehicleModelVM, VehicleModelEntity>().ReverseMap();
+            });
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-        }
+        }       
     }
 }
