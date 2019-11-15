@@ -23,9 +23,8 @@ namespace MonoProject.Service
         {
             using (var ctx = new Context())
             {
-                ctx.VehicleMakes.Add(vehicleMake);
+                ctx.Entry(vehicleMake).State = EntityState.Added;
                 ctx.SaveChanges();
-
             };
         }
         /// <summary>

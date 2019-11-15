@@ -14,7 +14,7 @@
     @using (Html.BeginForm("Index", "VehicleMake", FormMethod.Get))
     {
         <b>Search:</b><br />
-        @Html.TextBox("Search")<input type="Submit" value="Search" />@Html.ActionLink("Go to list", "Index", "VehicleMake")<br />
+        @Html.TextBox("Search")<input type="Submit" value="Search" />@Html.ActionLink("Back to list", "Index", "VehicleMake")<br />
         <select name="sortBy" value="@ViewBag.CurrentSortBy">
             <option value="">Sort</option>
             <option value="NAME">Name</option>
@@ -55,4 +55,4 @@
         </tr>
     }
 </table>
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page}))
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page,search=ViewBag.CurrentFilter,sortOrder = ViewBag.CurrentSort,sortBy=ViewBag.CurrentSortBy}))

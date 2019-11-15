@@ -1,6 +1,8 @@
 ﻿using MonoProject.Service.Models.Parameters_Models;
+using MonoProject.Service.Services.Common;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +10,7 @@ using System.Web.Mvc;
 
 namespace MonoProject.Service
 {
-   public class VehicleModelService
+   public class VehicleModelService : IVehicleModelService
     {
         /// <summary>
         /// ADDING VEHICLE MODEL
@@ -18,7 +20,7 @@ namespace MonoProject.Service
         {
             using (var ctx = new Context())
             {
-                ctx.VehicleModels.Add(vehicleModel);
+                ctx.Entry(vehicleModel).State = EntityState.Added;
                 ctx.SaveChanges();
 
             };
@@ -56,7 +58,7 @@ namespace MonoProject.Service
                         vehicleModels = vehicleModels.OrderBy(s => s.Name).AsQueryable();
                         break;
                     case "ID":
-                        vehicleModels = vehicleModels.OrderBy(s => s.Id).AsQueryable();
+                        vehicleModels = vehicleModels.OrderByDescending(s => s.Id).AsQueryable();
                         break;
                     default:
                         break;
@@ -77,12 +79,6 @@ namespace MonoProject.Service
                 return vehicleModels.ToList();
             }
         }
-
-        public object AddVehicleModel()
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// UPDATE VEHICLE MODEL
         /// </summary>
@@ -91,8 +87,7 @@ namespace MonoProject.Service
         {
             using (var ctx = new Context())
             {
-                var existingVehicleModel = ctx.VehicleModels.Where(x => x.Id == updateVehicleModel.Id).FirstOrDefault();
-                existingVehicleModel = updateVehicleModel;
+                ctx.Entry(updateVehicleModel).State = EntityState.Modified;
                 ctx.SaveChanges();
             }
         }
@@ -104,7 +99,7 @@ namespace MonoProject.Service
         {
             using (var ctx = new Context())
             {
-                ctx.VehicleModels.Remove(vehicleModelDelete);
+                ctx.Entry(vehicleModelDelete).State = EntityState.Deleted;
                 ctx.SaveChanges();
             }
         }

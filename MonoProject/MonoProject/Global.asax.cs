@@ -17,7 +17,12 @@ namespace MonoProject
             AutoMapper.Mapper.Initialize(x =>
             {
                 x.CreateMap<VehicleMakeVM, VehicleMakeEntity>().ReverseMap();
-                x.CreateMap<VehicleModelVM, VehicleModelEntity>().ReverseMap();
+                x.CreateMap<VehicleModelVM, VehicleModelEntity>().ForMember(
+                    dest => dest.VehicleMakeEntityId, opt => opt.MapFrom
+                    (src => src.VehicleMakeVMId))
+                .ReverseMap().ForMember(
+                    dest => dest.VehicleMakeVMId, opt => opt.MapFrom
+                    (src => src.VehicleMakeEntityId));
             });
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
