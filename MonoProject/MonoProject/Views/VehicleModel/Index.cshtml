@@ -1,59 +1,60 @@
 ﻿@model PagedList<MonoProject.Models.VehicleModelVM>
-@using PagedList;
-@using PagedList.Mvc;
+	@using PagedList;
+	@using PagedList.Mvc;
 
-@{
+	@{
     ViewBag.Title = "Index";
-}
+	}
 
-<h1>VehicleModels</h1>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<p>
-    @using (Html.BeginForm("Index", "VehicleModel", FormMethod.Get))
-    {
-        <b>Search:</b><br />
-        @Html.TextBox("Search")<input type="Submit" value="Search" />@Html.ActionLink("Go to list", "Index", "VehicleModel")<br />
-        <select name="sortBy" value="@ViewBag.CurrentSortBy">
-            <option value="">Sort</option>
-            <option value="NAME">Name</option>
-            <option value="ID">Id</option>
-        </select>
-        <select name="sortOrder" value="@ViewBag.CurrentSort">
-            <option value="">Order</option>
-            <option value="ASC">Ascending</option>
-            <option value="DESC">Descending</option>
-        </select>
-        <input type="submit" class="button1" value="Sort" />
-    }
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.First().Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().Abrv)
-        </th>
-        <th></th>
-    </tr>
-        @foreach (var item in Model)
+	<h1>VehicleModels</h1>
+	<p>
+		@Html.ActionLink("Create New", "Create")
+	</p>
+	<p>
+		@using (Html.BeginForm("Index", "VehicleModel", FormMethod.Get))
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Abrv)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
-            </tr>
+		<b>Search:</b><br />
+		@Html.TextBox("Search")<input type="Submit" value="Search" />@Html.ActionLink("Go to list", "Index", "VehicleModel")<br />
+		<select name="sortBy" value="@ViewBag.CurrentSortBy">
+			<option value="">Sort</option>
+			<option value="NAME">Name</option>
+			<option value="ID">Id</option>
+		</select>
+		<select name="sortOrder" value="@ViewBag.CurrentSort">
+			<option value="">Order</option>
+			<option value="ASC">Ascending</option>
+			<option value="DESC">Descending</option>
+		</select>
+		@Html.DropDownList("VehicleMakeVMId", null, htmlAttributes: new { @class = "form-control" })
+		<input type="submit" class="button1" value="Sort" />
         }
-</table>
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, search=ViewBag.CurrentFilter,sortOrder = ViewBag.CurrentSort,sortBy=ViewBag.CurrentSortBy}))
+	</p>
+	<table class="table">
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.First().Name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.First().Abrv)
+			</th>
+			<th></th>
+		</tr>
+		@foreach (var item in Model)
+        {
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Name)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Abrv)
+			</td>
+			<td>
+				@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+				@Html.ActionLink("Details", "Details", new { id = item.Id }) |
+				@Html.ActionLink("Delete", "Delete", new { id = item.Id })
+			</td>
+		</tr>
+        }
+	</table>
+	@Html.PagedListPager(Model, page => Url.Action("Index", new { page, search=ViewBag.CurrentFilter,sortOrder = ViewBag.CurrentSort,sortBy=ViewBag.CurrentSortBy}))
 

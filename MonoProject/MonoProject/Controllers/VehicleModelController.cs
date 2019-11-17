@@ -19,7 +19,7 @@ namespace MonoProject.Controllers
         private VehicleMakeService makeService = new VehicleMakeService();
         // GET: VehicleModel
         [HttpGet]
-        public ActionResult Index(string sortOrder, string sortBy, string search, int? page)
+        public ActionResult Index(string sortOrder, string sortBy, string search, int? page, int? VehicleMakeVMId)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.CurrentFilter = search;
@@ -44,6 +44,7 @@ namespace MonoProject.Controllers
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             var vmlist = Mapper.Map<List<VehicleModelVM>>(service.GetVehicleModels(sort, filter));
+            ViewBag.VehicleMakeVMId = new SelectList(makeService.GetVehicleMakes(new SortParameters { SortBy = "", SortOrder = "" }, new FilterParameters { Search = "" }), "Id", "Name");
             return View(vmlist.ToPagedList(pageNumber, pageSize));
         }
         // GET: VehicleModels/Details

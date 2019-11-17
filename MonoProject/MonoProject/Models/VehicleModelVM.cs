@@ -12,7 +12,6 @@ namespace MonoProject.Models
         public string Abrv { get; set; }
         public int VehicleMakeVMId { get; set; }
 
-        public virtual List<VehicleMakeVM> VehicleMakeVMs { get; set; }
         public VehicleMakeVM VehicleMakeVM { get; set; }
     }
 }

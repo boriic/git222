@@ -33,7 +33,8 @@ namespace MonoProject.Service
         {
             using (var ctx = new Context())
             {
-                return ctx.VehicleModels.Where(x => x.Id == id).FirstOrDefault();
+                var model = ctx.VehicleModels.Where(x => x.Id == id).Include(m => m.VehicleMakeEntity).FirstOrDefault();
+                return model;
             }
             
         }

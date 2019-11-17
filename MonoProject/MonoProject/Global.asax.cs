@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
-using System.Web.Routing;
+using System.Web.Routing;   
 
 namespace MonoProject
 {
@@ -19,10 +19,14 @@ namespace MonoProject
                 x.CreateMap<VehicleMakeVM, VehicleMakeEntity>().ReverseMap();
                 x.CreateMap<VehicleModelVM, VehicleModelEntity>().ForMember(
                     dest => dest.VehicleMakeEntityId, opt => opt.MapFrom
-                    (src => src.VehicleMakeVMId))
+                    (src => src.VehicleMakeVMId)).ForMember(
+                    dest => dest.VehicleMakeEntity, opt => opt.MapFrom(
+                        src=> src.VehicleMakeVM))
                 .ReverseMap().ForMember(
                     dest => dest.VehicleMakeVMId, opt => opt.MapFrom
-                    (src => src.VehicleMakeEntityId));
+                    (src => src.VehicleMakeEntityId)).ForMember(
+                    dest => dest.VehicleMakeVM, opt => opt.MapFrom(
+                        src=>src.VehicleMakeEntity));
             });
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
