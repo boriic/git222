@@ -9,6 +9,6 @@ namespace MonoProject.Service.Models.Parameters_Models
     public class FilterParameters
     {
         public string Search { get; set; }
-        public int MakeId { get; set; }
+        public int? MakeId { get; set; }
     }
 }

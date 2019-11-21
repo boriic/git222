@@ -25,7 +25,13 @@
 			<option value="ASC">Ascending</option>
 			<option value="DESC">Descending</option>
 		</select>
-		@Html.DropDownList("VehicleMakeVMId", null, htmlAttributes: new { @class = "form-control" })
+		<select name="makeId">
+			<option>Makes</option>
+			@foreach(var make in ViewBag.vehicleMakes)
+			{
+			<option value="@make.Id">@make.Name</option>
+			}
+		</select>
 		<input type="submit" class="button1" value="Sort" />
         }
 	</p>

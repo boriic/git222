@@ -66,19 +66,11 @@ namespace MonoProject.Service
                     default:
                         break;
                 }
-
-                //OrderDirection
-                switch (sort.SortOrder.ToUpper())
+                if (sort.SortOrder?.ToUpper() == "DESC")
                 {
-                    case "ASC":
-                        vehicleMakes = vehicleMakes.OrderBy(s => s.Name).AsQueryable();
-                        break;
-                    case "DESC":
-                        vehicleMakes = vehicleMakes.OrderByDescending(s => s.Name).AsQueryable();
-                        break;
-                    default:
-                        break;                     
-                }
+                    vehicleMakes =
+                        vehicleMakes.Reverse().AsQueryable();
+                };
                 return vehicleMakes.ToList();
             }           
         }

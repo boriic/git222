@@ -45,11 +45,17 @@ namespace MonoProject.Service
             {
                 if(!string.IsNullOrEmpty(filter.Search))
                 {
-                    return ctx.VehicleModels.Where(v => v.Name.ToUpper().StartsWith(filter.Search.ToUpper())).ToList();
+                    vehicleModels = ctx.VehicleModels.Where(v => v.Name.ToUpper().StartsWith(filter.Search.ToUpper())).AsQueryable();
                 }
                 else
                 {
                     vehicleModels = ctx.VehicleModels.AsQueryable();
+                }
+
+                if (filter.MakeId != null)
+                {
+                    vehicleModels =
+                        vehicleModels.Where(v => v.VehicleMakeEntity.Id == filter.MakeId).AsQueryable();
                 }
 
                 //ORDER BY
@@ -59,25 +65,20 @@ namespace MonoProject.Service
                         vehicleModels = vehicleModels.OrderBy(s => s.Name).AsQueryable();
                         break;
                     case "ID":
-                        vehicleModels = vehicleModels.OrderByDescending(s => s.Id).AsQueryable();
+                        vehicleModels = vehicleModels.OrderBy(s => s.Id).AsQueryable();
                         break;
                     default:
                         break;
                 }
-
+                
                 //OrderDirection
-                switch (sort.SortOrder.ToUpper())
+                    if (sort.SortOrder?.ToUpper()=="DESC")
                 {
-                    case "ASC":
-                        vehicleModels = vehicleModels.OrderBy(s => s.Name).AsQueryable();
-                        break;
-                    case "DESC":
-                        vehicleModels = vehicleModels.OrderByDescending(s => s.Name).AsQueryable();
-                        break;
-                    default:
-                        break;
-                }
-                return vehicleModels.ToList();
+                    vehicleModels =
+                        vehicleModels.Reverse().AsQueryable();
+                };                
+
+                return vehicleModels.ToList();                
             }
         }
         /// <summary>
