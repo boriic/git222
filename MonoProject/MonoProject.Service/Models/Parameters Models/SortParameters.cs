@@ -8,7 +8,7 @@ namespace MonoProject.Service.Models.Parameters_Models
 {
     public class SortParameters
     {
-        public string SortBy { get; set; }
+        public string SortBy { get; set; } 
         public string SortOrder { get; set; }
     }
 }

@@ -35,17 +35,17 @@ namespace MonoProject.Service
         {
             using (var ctx = new Context())
             {
-               return ctx.VehicleMakes.Where(x => x.Id == id).FirstOrDefault();   
+                return ctx.VehicleMakes.Where(x => x.Id == id).FirstOrDefault();
             }
         }
 
-        public List<VehicleMakeEntity> GetVehicleMakes(SortParameters sort, FilterParameters filter)
+        public IPagedList<VehicleMakeEntity> GetVehicleMakes(SortParameters sort, FilterParameters filter, PageParameters pagep)
         {
             IQueryable<VehicleMakeEntity> vehicleMakes;
             using (var ctx = new Context())
             {
                 //Search
-                if(!string.IsNullOrEmpty(filter.Search))
+                if (!string.IsNullOrEmpty(filter.Search))
                 {
                     vehicleMakes = ctx.VehicleMakes.Where(s => s.Name.ToUpper().StartsWith(filter.Search.ToUpper())).AsQueryable();
                 }
@@ -56,7 +56,7 @@ namespace MonoProject.Service
 
                 //OrderBy
                 switch (sort.SortBy.ToUpper())
-                {                 
+                {
                     case "NAME":
                         vehicleMakes = vehicleMakes.OrderBy(s => s.Name).AsQueryable();
                         break;
@@ -64,15 +64,33 @@ namespace MonoProject.Service
                         vehicleMakes = vehicleMakes.OrderBy(s => s.Id).AsQueryable();
                         break;
                     default:
+                        vehicleMakes = vehicleMakes.OrderBy(s => s.Id).AsQueryable();
                         break;
                 }
+                //CHOOSING PAGE SIZE (HOW MUCH ELEMENTS TO SHOW ON PAGE)
+                switch (pagep.PageSize)
+                {
+                    case 5:
+                        pagep.PageSize = 5;
+                        break;
+                    case 10:
+                        pagep.PageSize = 10;
+                        break;
+                    case 25:
+                        pagep.PageSize = 25;
+                        break;
+                    case 50:
+                        pagep.PageSize = 50;
+                        break;
+                }
+                //ORDER BY DESCENDING
                 if (sort.SortOrder?.ToUpper() == "DESC")
                 {
-                    vehicleMakes =
-                        vehicleMakes.Reverse().AsQueryable();
+                    vehicleMakes = vehicleMakes.OrderByDescending(s => s.Name).AsQueryable();
+                    vehicleMakes = vehicleMakes.OrderByDescending(s => s.Id).AsQueryable();
                 };
-                return vehicleMakes.ToList();
-            }           
+                return vehicleMakes.ToPagedList(pagep.Page, pagep.PageSize);
+            }
         }
 
         /// <summary>
@@ -84,20 +102,27 @@ namespace MonoProject.Service
         {
             using (var ctx = new Context())
             {
-                ctx.Entry(UpdateVehicleMake).State = EntityState.Modified;
-                ctx.SaveChanges();
+                if (UpdateVehicleMake != null)
+                {
+                    ctx.Entry(UpdateVehicleMake).State = EntityState.Modified;
+                    ctx.SaveChanges();
+                }
+
             }
         }
         /// <summary>
         /// REMOVE VEHICLE MAKE
         /// </summary>
-        
+
         public void DeleteVehicleMake(VehicleMakeEntity vehicleMakeDelete)
         {
             using (var ctx = new Context())
             {
-                ctx.Entry(vehicleMakeDelete).State = EntityState.Deleted;
-                ctx.SaveChanges();
+                if (vehicleMakeDelete != null)
+                {
+                    ctx.Entry(vehicleMakeDelete).State = EntityState.Deleted;
+                    ctx.SaveChanges();
+                }
             }
         }
     }

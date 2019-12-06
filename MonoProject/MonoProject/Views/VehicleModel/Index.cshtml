@@ -1,4 +1,4 @@
-﻿@model PagedList<MonoProject.Models.VehicleModelVM>
+﻿@model IPagedList<MonoProject.Models.VehicleModelVM>
 	@using PagedList;
 	@using PagedList.Mvc;
 
@@ -10,31 +10,38 @@
 	<p>
 		@Html.ActionLink("Create New", "Create")
 	</p>
-	<p>
-		@using (Html.BeginForm("Index", "VehicleModel", FormMethod.Get))
+    <p>
+        @using (Html.BeginForm("Index", "VehicleModel", FormMethod.Get))
         {
-		<b>Search:</b><br />
-		@Html.TextBox("Search")<input type="Submit" value="Search" />@Html.ActionLink("Go to list", "Index", "VehicleModel")<br />
-		<select name="sortBy" value="@ViewBag.CurrentSortBy">
-			<option value="">Sort</option>
-			<option value="NAME">Name</option>
-			<option value="ID">Id</option>
-		</select>
-		<select name="sortOrder" value="@ViewBag.CurrentSort">
-			<option value="">Order</option>
-			<option value="ASC">Ascending</option>
-			<option value="DESC">Descending</option>
-		</select>
-		<select name="makeId">
-			<option>Makes</option>
-			@foreach(var make in ViewBag.vehicleMakes)
-			{
-			<option value="@make.Id">@make.Name</option>
-			}
-		</select>
-		<input type="submit" class="button1" value="Sort" />
+            <b>Search:</b><br />
+            @Html.TextBox("Search")<input type="Submit" value="Search" />@Html.ActionLink("Go to list", "Index", "VehicleModel")<br />
+            <select name="sortBy" value="@ViewBag.CurrentSortBy">
+                <option value="">Sort</option>
+                <option value="NAME">Name</option>
+                <option value="ID">Id</option>
+            </select>
+            <select name="sortOrder" value="@ViewBag.CurrentSort">
+                <option value="">Order</option>
+                <option value="ASC">Ascending</option>
+                <option value="DESC">Descending</option>
+            </select>
+            <select name="makeId">
+                <option>Makes</option>
+                @foreach (var make in ViewBag.vehicleMakes)
+                {
+                    <option value="@make.Id">@make.Name</option>
+                }
+            </select>
+            <select name="pageSize" value="@ViewBag.CurrentPageSize">
+                <option value="">Elemenets per page</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+            </select>
+            <input type="submit" class="button1" value="Sort" />
         }
-	</p>
+    </p>
 	<table class="table">
 		<tr>
 			<th>
@@ -62,5 +69,5 @@
 		</tr>
         }
 	</table>
-	@Html.PagedListPager(Model, page => Url.Action("Index", new { page, search=ViewBag.CurrentFilter,sortOrder = ViewBag.CurrentSort,sortBy=ViewBag.CurrentSortBy}))
+	@Html.PagedListPager(Model, page => Url.Action("Index", new { page, search = ViewBag.CurrentFilter,sortOrder = ViewBag.CurrentSort,sortBy = ViewBag.CurrentSortBy, pageSize = ViewBag.CurrentPageSize}))
 

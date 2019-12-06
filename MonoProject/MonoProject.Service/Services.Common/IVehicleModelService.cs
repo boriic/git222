@@ -1,4 +1,5 @@
 ﻿using MonoProject.Service.Models.Parameters_Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace MonoProject.Service.Services.Common
     {
         void AddVehicleModel(VehicleModelEntity vehicleModel);
         VehicleModelEntity GetVehicleModel(int id);
-        List<VehicleModelEntity> GetVehicleModels(SortParameters sort, FilterParameters filter);
+        IPagedList<VehicleModelEntity> GetVehicleModels(SortParameters sort, FilterParameters filter, PageParameters pagep);
         void UpdateVehicleModel(VehicleModelEntity updateVehicleModel);
         void DeleteVehicleModel(VehicleModelEntity vehicleModelDelete);
     }

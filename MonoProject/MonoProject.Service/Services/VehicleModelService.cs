@@ -1,5 +1,6 @@
 ﻿using MonoProject.Service.Models.Parameters_Models;
 using MonoProject.Service.Services.Common;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -38,11 +39,12 @@ namespace MonoProject.Service
             }
             
         }
-        public List<VehicleModelEntity> GetVehicleModels(SortParameters sort, FilterParameters filter)
+        public IPagedList<VehicleModelEntity> GetVehicleModels(SortParameters sort, FilterParameters filter, PageParameters pagep)
         {
             IQueryable<VehicleModelEntity> vehicleModels;
             using (var ctx = new Context())
             {
+                
                 if(!string.IsNullOrEmpty(filter.Search))
                 {
                     vehicleModels = ctx.VehicleModels.Where(v => v.Name.ToUpper().StartsWith(filter.Search.ToUpper())).AsQueryable();
@@ -51,13 +53,11 @@ namespace MonoProject.Service
                 {
                     vehicleModels = ctx.VehicleModels.AsQueryable();
                 }
-
                 if (filter.MakeId != null)
                 {
                     vehicleModels =
                         vehicleModels.Where(v => v.VehicleMakeEntity.Id == filter.MakeId).AsQueryable();
                 }
-
                 //ORDER BY
                 switch (sort.SortBy.ToUpper())
                 {
@@ -68,17 +68,33 @@ namespace MonoProject.Service
                         vehicleModels = vehicleModels.OrderBy(s => s.Id).AsQueryable();
                         break;
                     default:
+                        vehicleModels = vehicleModels.OrderBy(s => s.Id).AsQueryable();
                         break;
                 }
-                
-                //OrderDirection
-                    if (sort.SortOrder?.ToUpper()=="DESC")
+                //CHOOSING PAGE SIZE (HOW MUCH ELEMENTS TO SHOW ON PAGE)
+                switch (pagep.PageSize)
                 {
-                    vehicleModels =
-                        vehicleModels.Reverse().AsQueryable();
-                };                
+                    case 5:
+                        pagep.PageSize = 5;
+                        break;
+                    case 10:
+                        pagep.PageSize = 10;
+                        break;
+                    case 25:
+                        pagep.PageSize = 25;
+                        break;
+                    case 50:
+                        pagep.PageSize = 50;
+                        break;
+                }
+                //ORDER BY DESCENDING
+                if (sort.SortOrder?.ToUpper()=="DESC")
+                {
+                    vehicleModels = vehicleModels.OrderByDescending(s => s.Name).AsQueryable();
+                    vehicleModels = vehicleModels.OrderByDescending(s => s.Id).AsQueryable();                  
+                };
+                return vehicleModels.ToPagedList(pagep.Page,pagep.PageSize);
 
-                return vehicleModels.ToList();                
             }
         }
         /// <summary>
@@ -89,8 +105,12 @@ namespace MonoProject.Service
         {
             using (var ctx = new Context())
             {
-                ctx.Entry(updateVehicleModel).State = EntityState.Modified;
-                ctx.SaveChanges();
+                if (updateVehicleModel != null)
+                {
+                    ctx.Entry(updateVehicleModel).State = EntityState.Modified;
+                    ctx.SaveChanges();
+                }
+
             }
         }
         /// <summary>
@@ -101,8 +121,12 @@ namespace MonoProject.Service
         {
             using (var ctx = new Context())
             {
-                ctx.Entry(vehicleModelDelete).State = EntityState.Deleted;
-                ctx.SaveChanges();
+                if (vehicleModelDelete != null)
+                {
+                    ctx.Entry(vehicleModelDelete).State = EntityState.Deleted;
+                    ctx.SaveChanges();
+                }
+
             }
         }
     }

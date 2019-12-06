@@ -19,11 +19,12 @@ namespace MonoProject.Controllers
         private VehicleMakeService makeService = new VehicleMakeService();
         // GET: VehicleModel
         [HttpGet]
-        public ActionResult Index(string sortOrder, string sortBy, string search, int? page, int? makeId)
+        public ActionResult Index(string search, int? makeId, string sortOrder = "", int? page = 1, int pageSize = 5, string sortBy = "")
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.CurrentFilter = search;
             ViewBag.CurrentSortBy = sortBy;
+            ViewBag.CurrentPageSize = pageSize;
             var filter = new FilterParameters
             {
                 Search = search,
@@ -32,22 +33,16 @@ namespace MonoProject.Controllers
             var sort = new SortParameters
             {
                 SortBy = sortBy,
-                SortOrder = sortOrder
+                SortOrder = sortOrder              
             };
-            if (sort.SortBy == null)
+            var pagep = new PageParameters
             {
-                sort.SortBy = "";
-            }
-            if (sort.SortOrder == null)
-            {
-                sort.SortOrder = "";
-            }
-            int pageSize = 5;
-            int pageNumber = (page ?? 1);
-            var vmlist = Mapper.Map<List<VehicleModelVM>>(service.GetVehicleModels(sort, filter));
-            ViewBag.vehicleMakes = new List<VehicleMakeEntity>(makeService.GetVehicleMakes(new SortParameters() { SortBy = "", SortOrder = ""}, new FilterParameters() { Search = ""}));
-            return View(vmlist.ToPagedList(pageNumber, pageSize));
-
+                Page = (int)page,
+                PageSize = pageSize,
+            };
+            var vmlist = service.GetVehicleModels(sort, filter, pagep);
+            ViewBag.vehicleMakes = new List<VehicleMakeEntity>(makeService.GetVehicleMakes(new SortParameters() { SortBy = "", SortOrder = ""}, new FilterParameters() { Search = ""}, new PageParameters() {Page = 1, PageSize = 50}));
+            return View(new StaticPagedList<VehicleModelVM>(AutoMapper.Mapper.Map<IEnumerable<VehicleModelVM>>(vmlist), vmlist.GetMetaData()));
         }
         // GET: VehicleModels/Details
         [HttpGet]
@@ -68,7 +63,7 @@ namespace MonoProject.Controllers
         [HttpGet]
         public ActionResult Create ()
         {
-            ViewBag.VehicleMakeVMId = new SelectList(makeService.GetVehicleMakes(new SortParameters { SortBy = "", SortOrder = ""}, new FilterParameters { Search = ""}), "Id", "Name");
+            ViewBag.VehicleMakeVMId = new SelectList(makeService.GetVehicleMakes(new SortParameters { SortBy = "", SortOrder = ""}, new FilterParameters { Search = ""}, new PageParameters() { Page = 1, PageSize = 50 }), "Id", "Name");
             return View();
         }
         // POST: VehicleModels/Create
@@ -95,7 +90,7 @@ namespace MonoProject.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.VehicleMakeVMId = new SelectList(makeService.GetVehicleMakes(new SortParameters { SortBy ="", SortOrder =""}, new FilterParameters { Search = "" }), "Id","Name");
+            ViewBag.VehicleMakeVMId = new SelectList(makeService.GetVehicleMakes(new SortParameters { SortBy ="", SortOrder =""}, new FilterParameters { Search = "" }, new PageParameters() { Page = 1, PageSize = 50 }), "Id","Name");
             return View(vehicleModel);
         }
         // POST: VehicleModels/Edit

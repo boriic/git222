@@ -1,4 +1,4 @@
-﻿@model PagedList<MonoProject.Models.VehicleMakeVM>
+﻿@model IPagedList<MonoProject.Models.VehicleMakeVM>
 @using PagedList;
 @using PagedList.Mvc;
 
@@ -25,7 +25,15 @@
             <option value="ASC">Ascending</option>
             <option value="DESC">Descending</option>
         </select>
+        <select name="pageSize" value="@ViewBag.CurrentPageSize">
+            <option value="">Elemenets per page</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+        </select>
         <input type="submit" class="button1" value="Sort" />
+
     }
 </p>
 <table class="table">
@@ -55,4 +63,4 @@
         </tr>
     }
 </table>
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page,search=ViewBag.CurrentFilter,sortOrder = ViewBag.CurrentSort,sortBy=ViewBag.CurrentSortBy}))
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page,search=ViewBag.CurrentFilter,sortOrder = ViewBag.CurrentSort,sortBy=ViewBag.CurrentSortBy, pageSize = ViewBag.CurrentPageSize}))

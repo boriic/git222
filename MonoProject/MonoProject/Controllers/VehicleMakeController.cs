@@ -18,11 +18,12 @@ namespace MonoProject.Controllers
         private VehicleMakeService service = new VehicleMakeService();
 
         // GET: VehicleMake
-        public ActionResult Index(string sortOrder, string sortBy, string search, int? page)
+        public ActionResult Index(string search, int? page = 1, int pageSize = 5, string sortOrder= "",string sortBy = "")
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.CurrentFilter = search;
             ViewBag.CurrentSortBy = sortBy;
+            ViewBag.CurrentPageSize = pageSize;
             var filter = new FilterParameters
             {
                 Search = search
@@ -32,18 +33,14 @@ namespace MonoProject.Controllers
                 SortBy = sortBy,
                 SortOrder = sortOrder
             };
-            if (sort.SortBy == null)
+            var pagep = new PageParameters
             {
-                sort.SortBy = "";
-            }
-            if (sort.SortOrder == null)
-            {
-                sort.SortOrder = "";
-            }
-            int pageSize = 5;
-            int pageNumber = (page ?? 1);
-            var vmList = Mapper.Map<List<VehicleMakeVM>>(service.GetVehicleMakes(sort, filter));
-            return View(vmList.ToPagedList(pageNumber, pageSize));
+                Page = (int)page,
+                PageSize = pageSize
+            };
+            var vmlist = service.GetVehicleMakes(sort, filter, pagep);
+            var makeVMList = AutoMapper.Mapper.Map<IEnumerable<VehicleMakeVM>>(vmlist);
+            return View(new StaticPagedList<VehicleMakeVM>(makeVMList, vmlist.GetMetaData()));
         }
 
         // GET: VehicleMakes/Details
