@@ -10,15 +10,21 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
+using MonoProject.Service.Services.Common;
 
 namespace MonoProject.Controllers
 {
     public class VehicleMakeController : Controller
     {
-        private VehicleMakeService service = new VehicleMakeService();
+        private readonly IVehicleMakeService _vehicleMakeService;
+        public VehicleMakeController (IVehicleMakeService vehicleMakeService)
+        {
+            _vehicleMakeService = vehicleMakeService;
+        }
 
         // GET: VehicleMake
-        public ActionResult Index(string search, int? page = 1, int pageSize = 5, string sortOrder= "",string sortBy = "")
+        public async Task <ActionResult> Index(string search, int? page = 1, int pageSize = 5, string sortOrder= "",string sortBy = "")
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.CurrentFilter = search;
@@ -38,19 +44,19 @@ namespace MonoProject.Controllers
                 Page = (int)page,
                 PageSize = pageSize
             };
-            var vmlist = service.GetVehicleMakes(sort, filter, pagep);
+            var vmlist = await _vehicleMakeService.GetVehicleMakes(sort, filter, pagep);
             var makeVMList = AutoMapper.Mapper.Map<IEnumerable<VehicleMakeVM>>(vmlist);
             return View(new StaticPagedList<VehicleMakeVM>(makeVMList, vmlist.GetMetaData()));
         }
 
         // GET: VehicleMakes/Details
-        public ActionResult Details(int? id)
+        public async Task <ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var vehicleMake = Mapper.Map<VehicleMakeVM>(service.GetVehicleMake((int)id));
+            var vehicleMake = Mapper.Map<VehicleMakeVM>(await _vehicleMakeService.GetVehicleMake((int)id));
             if (vehicleMake == null)
             {
                 return HttpNotFound();
@@ -60,18 +66,18 @@ namespace MonoProject.Controllers
 
         // GET: VehicleMakes/Create
         [HttpGet]
-        public ActionResult Create()
+        public async Task <ActionResult> Create()
         {
             return View();
         }
 
         // POST: VehicleMakes/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Id,Name,Abrv")]VehicleMakeVM vehicleMake)
+        public async Task <ActionResult> Create([Bind(Include = "Id,Name,Abrv")]VehicleMakeVM vehicleMake)
         {
             if(ModelState.IsValid)
             {
-                service.AddVehicleMake(Mapper.Map<VehicleMakeEntity>(vehicleMake));
+                await _vehicleMakeService.AddVehicleMake(Mapper.Map<VehicleMakeEntity>(vehicleMake));
                 return RedirectToAction("Index");
             }
             return View(vehicleMake);
@@ -79,13 +85,13 @@ namespace MonoProject.Controllers
 
         // GET: VehicleMakes/Edit
         [HttpGet]
-        public ActionResult Edit(int? id)
+        public async Task <ActionResult> Edit(int? id)
         {
             if(id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var vehicleMake = Mapper.Map<VehicleMakeVM>(service.GetVehicleMake((int)id));
+            var vehicleMake = Mapper.Map<VehicleMakeVM>(await _vehicleMakeService.GetVehicleMake((int)id));
             if (vehicleMake == null)
             {
                 return HttpNotFound();
@@ -94,23 +100,23 @@ namespace MonoProject.Controllers
         }
         // POST: VehicleMakes/Edit
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Id,Name,Abrv")] VehicleMakeVM vehicleMake)
+        public async Task <ActionResult> Edit([Bind(Include = "Id,Name,Abrv")] VehicleMakeVM vehicleMake)
         {
             if (ModelState.IsValid)
             {
-                service.UpdateVehicleMake(Mapper.Map<VehicleMakeEntity>(vehicleMake));
+                await _vehicleMakeService.UpdateVehicleMake(Mapper.Map<VehicleMakeEntity>(vehicleMake));
                 return RedirectToAction("Index");
             }
             return View(vehicleMake);
         }
         // GET: VehicleMakes/Delete
-        public ActionResult Delete(int? id)
+        public async Task <ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var vehicleMake = Mapper.Map<VehicleMakeVM>(service.GetVehicleMake((int)id));
+            var vehicleMake = Mapper.Map<VehicleMakeVM>(await _vehicleMakeService.GetVehicleMake((int)id));
             if (vehicleMake == null)
             {
                 return HttpNotFound();
@@ -119,10 +125,10 @@ namespace MonoProject.Controllers
         }
         // POST: VehicleMakes/Delete
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int? id)
+        public async Task <ActionResult> DeleteConfirmed(int? id)
         {
-            var vehicleMake = Mapper.Map<VehicleMakeVM>(service.GetVehicleMake((int)id));
-            service.DeleteVehicleMake(Mapper.Map<VehicleMakeEntity>(vehicleMake));
+            var vehicleMake = Mapper.Map<VehicleMakeVM>(await _vehicleMakeService.GetVehicleMake((int)id));
+            await _vehicleMakeService.DeleteVehicleMake(Mapper.Map<VehicleMakeEntity>(vehicleMake));
             return RedirectToAction("Index");
         }
     }

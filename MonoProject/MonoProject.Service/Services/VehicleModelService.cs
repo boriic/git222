@@ -17,12 +17,12 @@ namespace MonoProject.Service
         /// ADDING VEHICLE MODEL
         /// </summary>
         /// <param name="vehicleModel"></param>
-        public void AddVehicleModel(VehicleModelEntity vehicleModel)
+        public async Task AddVehicleModel(VehicleModelEntity vehicleModel)
         {
             using (var ctx = new Context())
             {
                 ctx.Entry(vehicleModel).State = EntityState.Added;
-                ctx.SaveChanges();
+                await ctx.SaveChangesAsync();
 
             };
         }
@@ -30,16 +30,16 @@ namespace MonoProject.Service
         /// READING VEHICLE MODEL
         /// </summary>
         /// <param name="id"></param>
-        public VehicleModelEntity GetVehicleModel(int id)
+        public async Task <VehicleModelEntity> GetVehicleModel(int id)
         {
             using (var ctx = new Context())
             {
-                var model = ctx.VehicleModels.Where(x => x.Id == id).Include(m => m.VehicleMakeEntity).FirstOrDefault();
+                var model = await ctx.VehicleModels.Where(x => x.Id == id).Include(m => m.VehicleMakeEntity).FirstOrDefaultAsync();
                 return model;
             }
             
         }
-        public IPagedList<VehicleModelEntity> GetVehicleModels(SortParameters sort, FilterParameters filter, PageParameters pagep)
+        public async Task <IPagedList<VehicleModelEntity>> GetVehicleModels(SortParameters sort, FilterParameters filter, PageParameters pagep)
         {
             IQueryable<VehicleModelEntity> vehicleModels;
             using (var ctx = new Context())
@@ -47,7 +47,7 @@ namespace MonoProject.Service
                 
                 if(!string.IsNullOrEmpty(filter.Search))
                 {
-                    vehicleModels = ctx.VehicleModels.Where(v => v.Name.ToUpper().StartsWith(filter.Search.ToUpper())).AsQueryable();
+                    vehicleModels =ctx.VehicleModels.Where(v => v.Name.ToUpper().StartsWith(filter.Search.ToUpper())).AsQueryable();
                 }
                 else
                 {
@@ -101,14 +101,14 @@ namespace MonoProject.Service
         /// UPDATE VEHICLE MODEL
         /// </summary>
         /// <param name="updateVehicleModel"></param>
-        public void UpdateVehicleModel(VehicleModelEntity updateVehicleModel)
+        public async Task UpdateVehicleModel(VehicleModelEntity updateVehicleModel)
         {
             using (var ctx = new Context())
             {
                 if (updateVehicleModel != null)
                 {
                     ctx.Entry(updateVehicleModel).State = EntityState.Modified;
-                    ctx.SaveChanges();
+                    await ctx.SaveChangesAsync();
                 }
 
             }
@@ -117,14 +117,14 @@ namespace MonoProject.Service
         /// REMOVE VEHICLE MODEL
         /// </summary>
         /// <param name="vehicleModelDelete"></param>
-        public void DeleteVehicleModel(VehicleModelEntity vehicleModelDelete)
+        public async Task DeleteVehicleModel(VehicleModelEntity vehicleModelDelete)
         {
             using (var ctx = new Context())
             {
                 if (vehicleModelDelete != null)
                 {
                     ctx.Entry(vehicleModelDelete).State = EntityState.Deleted;
-                    ctx.SaveChanges();
+                    await ctx.SaveChangesAsync();
                 }
 
             }

@@ -19,27 +19,27 @@ namespace MonoProject.Service
         /// </summary>
         /// <param name="vehicleMake"></param>
 
-        public void AddVehicleMake(VehicleMakeEntity vehicleMake)
+        public async Task AddVehicleMake(VehicleMakeEntity vehicleMake)
         {
             using (var ctx = new Context())
             {
                 ctx.Entry(vehicleMake).State = EntityState.Added;
-                ctx.SaveChanges();
+                await ctx.SaveChangesAsync();
             };
         }
         /// <summary>
         /// READING VEHICLE MAKE
         /// </summary>
         /// <param name="id"></param>
-        public VehicleMakeEntity GetVehicleMake(int id)
+        public async Task <VehicleMakeEntity> GetVehicleMake(int id)
         {
             using (var ctx = new Context())
             {
-                return ctx.VehicleMakes.Where(x => x.Id == id).FirstOrDefault();
+                return await ctx.VehicleMakes.Where(x => x.Id == id).FirstOrDefaultAsync();
             }
         }
 
-        public IPagedList<VehicleMakeEntity> GetVehicleMakes(SortParameters sort, FilterParameters filter, PageParameters pagep)
+        public async Task <IPagedList<VehicleMakeEntity>> GetVehicleMakes(SortParameters sort, FilterParameters filter, PageParameters pagep)
         {
             IQueryable<VehicleMakeEntity> vehicleMakes;
             using (var ctx = new Context())
@@ -98,14 +98,14 @@ namespace MonoProject.Service
         /// </summary>
         /// <param name="UpdateVehicleMake"></param>
 
-        public void UpdateVehicleMake(VehicleMakeEntity UpdateVehicleMake)
+        public async Task UpdateVehicleMake(VehicleMakeEntity UpdateVehicleMake)
         {
             using (var ctx = new Context())
             {
                 if (UpdateVehicleMake != null)
                 {
                     ctx.Entry(UpdateVehicleMake).State = EntityState.Modified;
-                    ctx.SaveChanges();
+                    await ctx.SaveChangesAsync();
                 }
 
             }
@@ -114,14 +114,14 @@ namespace MonoProject.Service
         /// REMOVE VEHICLE MAKE
         /// </summary>
 
-        public void DeleteVehicleMake(VehicleMakeEntity vehicleMakeDelete)
+        public async Task DeleteVehicleMake(VehicleMakeEntity vehicleMakeDelete)
         {
             using (var ctx = new Context())
             {
                 if (vehicleMakeDelete != null)
                 {
                     ctx.Entry(vehicleMakeDelete).State = EntityState.Deleted;
-                    ctx.SaveChanges();
+                    await ctx.SaveChangesAsync();
                 }
             }
         }

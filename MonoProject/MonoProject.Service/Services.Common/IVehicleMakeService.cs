@@ -10,10 +10,10 @@ namespace MonoProject.Service.Services.Common
 {
     public interface IVehicleMakeService
     {
-        void AddVehicleMake(VehicleMakeEntity vehicleMake);
-        VehicleMakeEntity GetVehicleMake(int id);
-        IPagedList<VehicleMakeEntity> GetVehicleMakes(SortParameters sort, FilterParameters filter, PageParameters pagep);
-        void UpdateVehicleMake(VehicleMakeEntity UpdateVehicleMake);
-        void DeleteVehicleMake(VehicleMakeEntity vehicleMakeDelete);
+        Task AddVehicleMake(VehicleMakeEntity vehicleMake);
+        Task <VehicleMakeEntity> GetVehicleMake(int id);
+        Task <IPagedList<VehicleMakeEntity>> GetVehicleMakes(SortParameters sort, FilterParameters filter, PageParameters pagep);
+        Task UpdateVehicleMake(VehicleMakeEntity UpdateVehicleMake);
+        Task DeleteVehicleMake(VehicleMakeEntity vehicleMakeDelete);
     }
 }
