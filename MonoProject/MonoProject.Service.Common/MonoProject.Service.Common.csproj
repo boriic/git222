@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PagedList" Version="1.17.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MonoProject.Common\MonoProject.Common.csproj" />
+    <ProjectReference Include="..\MonoProject.Model\MonoProject.Model.csproj" />
+  </ItemGroup>
+
+</Project>

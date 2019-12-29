@@ -6,91 +6,48 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using PagedList;
 using System.Web.Mvc;
-using MonoProject.Service.Services.Common;
-using MonoProject.Service.Models.Parameters_Models;
+using MonoProject.DAL.Entities;
+using MonoProject.DAL.Context;
+using MonoProject.Repository.Common;
+using MonoProject.Repository;
+using MonoProject.Service.Common;
+using MonoProject.Common.Parameters_Models;
+using MonoProject.Model;
 
 namespace MonoProject.Service
 {
 
     public class VehicleMakeService : IVehicleMakeService
     {
+        private readonly IVehicleMakeRepository _vehicleMakeRepository;
+        public VehicleMakeService(IVehicleMakeRepository vehicleMakeRepository)
+        {
+            _vehicleMakeRepository = vehicleMakeRepository;
+        }
         /// <summary>
         /// ADDING VEHICLE MAKE
         /// </summary>
         /// <param name="vehicleMake"></param>
 
-        public async Task AddVehicleMake(VehicleMakeEntity vehicleMake)
+        public async Task AddVehicleMakeAsync(VehicleMake vehicleMake)
         {
-            using (var ctx = new Context())
-            {
-                ctx.Entry(vehicleMake).State = EntityState.Added;
-                await ctx.SaveChangesAsync();
-            };
+            await _vehicleMakeRepository.AddVehicleMakeAsync(AutoMapper.Mapper.Map<VehicleMakeEntity>(vehicleMake));
         }
         /// <summary>
         /// READING VEHICLE MAKE
         /// </summary>
         /// <param name="id"></param>
-        public async Task <VehicleMakeEntity> GetVehicleMake(int id)
+        public async Task<VehicleMake> GetVehicleMakeAsync(int id)
         {
-            using (var ctx = new Context())
-            {
-                return await ctx.VehicleMakes.Where(x => x.Id == id).FirstOrDefaultAsync();
-            }
+            return AutoMapper.Mapper.Map<VehicleMake>(await _vehicleMakeRepository.GetVehicleMakeAsync(id));
+
         }
 
-        public async Task <IPagedList<VehicleMakeEntity>> GetVehicleMakes(SortParameters sort, FilterParameters filter, PageParameters pagep)
+        public async Task<IPagedList<VehicleMake>> GetVehicleMakesAsync(SortParameters sort, FilterParameters filter, PageParameters pagep)
         {
-            IQueryable<VehicleMakeEntity> vehicleMakes;
-            using (var ctx = new Context())
-            {
-                //Search
-                if (!string.IsNullOrEmpty(filter.Search))
-                {
-                    vehicleMakes = ctx.VehicleMakes.Where(s => s.Name.ToUpper().StartsWith(filter.Search.ToUpper())).AsQueryable();
-                }
-                else
-                {
-                    vehicleMakes = ctx.VehicleMakes.AsQueryable();
-                }
-
-                //OrderBy
-                switch (sort.SortBy.ToUpper())
-                {
-                    case "NAME":
-                        vehicleMakes = vehicleMakes.OrderBy(s => s.Name).AsQueryable();
-                        break;
-                    case "ID":
-                        vehicleMakes = vehicleMakes.OrderBy(s => s.Id).AsQueryable();
-                        break;
-                    default:
-                        vehicleMakes = vehicleMakes.OrderBy(s => s.Id).AsQueryable();
-                        break;
-                }
-                //CHOOSING PAGE SIZE (HOW MUCH ELEMENTS TO SHOW ON PAGE)
-                switch (pagep.PageSize)
-                {
-                    case 5:
-                        pagep.PageSize = 5;
-                        break;
-                    case 10:
-                        pagep.PageSize = 10;
-                        break;
-                    case 25:
-                        pagep.PageSize = 25;
-                        break;
-                    case 50:
-                        pagep.PageSize = 50;
-                        break;
-                }
-                //ORDER BY DESCENDING
-                if (sort.SortOrder?.ToUpper() == "DESC")
-                {
-                    vehicleMakes = vehicleMakes.OrderByDescending(s => s.Name).AsQueryable();
-                    vehicleMakes = vehicleMakes.OrderByDescending(s => s.Id).AsQueryable();
-                };
-                return vehicleMakes.ToPagedList(pagep.Page, pagep.PageSize);
-            }
+            var makeList = await _vehicleMakeRepository.GetVehicleMakesAsync(sort, filter, pagep);
+            var makeVMList = AutoMapper.Mapper.Map<IEnumerable<VehicleMake>>(makeList);
+            return new StaticPagedList<VehicleMake>(makeVMList, makeList.GetMetaData());
         }
 
         /// <summary>
@@ -98,32 +55,20 @@ namespace MonoProject.Service
         /// </summary>
         /// <param name="UpdateVehicleMake"></param>
 
-        public async Task UpdateVehicleMake(VehicleMakeEntity UpdateVehicleMake)
+        public async Task UpdateVehicleMakeAsync(VehicleMake UpdateVehicleMake)
         {
-            using (var ctx = new Context())
+            if (UpdateVehicleMake != null)
             {
-                if (UpdateVehicleMake != null)
-                {
-                    ctx.Entry(UpdateVehicleMake).State = EntityState.Modified;
-                    await ctx.SaveChangesAsync();
-                }
-
+                await _vehicleMakeRepository.UpdateVehicleMakeAsync(AutoMapper.Mapper.Map<VehicleMakeEntity>(UpdateVehicleMake));
             }
         }
         /// <summary>
         /// REMOVE VEHICLE MAKE
         /// </summary>
 
-        public async Task DeleteVehicleMake(VehicleMakeEntity vehicleMakeDelete)
+        public async Task DeleteVehicleMakeAsync(int id)
         {
-            using (var ctx = new Context())
-            {
-                if (vehicleMakeDelete != null)
-                {
-                    ctx.Entry(vehicleMakeDelete).State = EntityState.Deleted;
-                    await ctx.SaveChangesAsync();
-                }
-            }
+            await _vehicleMakeRepository.DeleteVehicleMakeAsync(id);
         }
     }
 

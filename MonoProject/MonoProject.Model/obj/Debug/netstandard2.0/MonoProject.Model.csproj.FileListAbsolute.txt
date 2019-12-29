@@ -1,0 +1,11 @@
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model\bin\Debug\netstandard2.0\MonoProject.Model.deps.json
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model\bin\Debug\netstandard2.0\MonoProject.Model.dll
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model\bin\Debug\netstandard2.0\MonoProject.Model.pdb
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model\bin\Debug\netstandard2.0\MonoProject.Model.Common.dll
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model\bin\Debug\netstandard2.0\MonoProject.Model.Common.pdb
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model\obj\Debug\netstandard2.0\MonoProject.Model.csprojAssemblyReference.cache
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model\obj\Debug\netstandard2.0\MonoProject.Model.AssemblyInfoInputs.cache
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model\obj\Debug\netstandard2.0\MonoProject.Model.AssemblyInfo.cs
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model\obj\Debug\netstandard2.0\MonoProject.Model.csproj.CopyComplete
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model\obj\Debug\netstandard2.0\MonoProject.Model.dll
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model\obj\Debug\netstandard2.0\MonoProject.Model.pdb

@@ -1,0 +1,8 @@
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model.Common\bin\Debug\netstandard2.0\MonoProject.Model.Common.deps.json
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model.Common\bin\Debug\netstandard2.0\MonoProject.Model.Common.dll
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model.Common\bin\Debug\netstandard2.0\MonoProject.Model.Common.pdb
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model.Common\obj\Debug\netstandard2.0\MonoProject.Model.Common.AssemblyInfoInputs.cache
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model.Common\obj\Debug\netstandard2.0\MonoProject.Model.Common.AssemblyInfo.cs
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model.Common\obj\Debug\netstandard2.0\MonoProject.Model.Common.dll
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model.Common\obj\Debug\netstandard2.0\MonoProject.Model.Common.pdb
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Model.Common\obj\Debug\netstandard2.0\MonoProject.Model.Common.csprojAssemblyReference.cache

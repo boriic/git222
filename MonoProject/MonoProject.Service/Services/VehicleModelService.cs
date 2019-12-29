@@ -1,6 +1,4 @@
-﻿using MonoProject.Service.Models.Parameters_Models;
-using MonoProject.Service.Services.Common;
-using PagedList;
+﻿using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,126 +6,65 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using MonoProject.DAL.Entities;
+using MonoProject.DAL.Context;
+using MonoProject.Service.Common;
+using MonoProject.Common.Parameters_Models;
+using MonoProject.Repository.Common;
+using MonoProject.Model;
 
 namespace MonoProject.Service
 {
    public class VehicleModelService : IVehicleModelService
     {
+        private readonly IVehicleModelRepository _vehicleModelRepository;
+        private readonly IVehicleMakeRepository _vehicleMakeRepository;
+        public VehicleModelService(IVehicleModelRepository vehicleModelRepository, IVehicleMakeRepository vehicleMakeRepository)
+        {
+            _vehicleModelRepository = vehicleModelRepository;
+            _vehicleMakeRepository = vehicleMakeRepository;
+        }
         /// <summary>
         /// ADDING VEHICLE MODEL
         /// </summary>
         /// <param name="vehicleModel"></param>
-        public async Task AddVehicleModel(VehicleModelEntity vehicleModel)
+        public async Task AddVehicleModelAsync(VehicleModel vehicleModel)
         {
-            using (var ctx = new Context())
-            {
-                ctx.Entry(vehicleModel).State = EntityState.Added;
-                await ctx.SaveChangesAsync();
-
-            };
+            await _vehicleModelRepository.AddVehicleModelAsync(AutoMapper.Mapper.Map<VehicleModelEntity>(vehicleModel));
         }
         /// <summary>
         /// READING VEHICLE MODEL
         /// </summary>
         /// <param name="id"></param>
-        public async Task <VehicleModelEntity> GetVehicleModel(int id)
+        public async Task <VehicleModel> GetVehicleModelAsync(int id)
         {
-            using (var ctx = new Context())
-            {
-                var model = await ctx.VehicleModels.Where(x => x.Id == id).Include(m => m.VehicleMakeEntity).FirstOrDefaultAsync();
-                return model;
-            }
-            
+            return AutoMapper.Mapper.Map<VehicleModel>(await _vehicleModelRepository.GetVehicleModelAsync(id));
         }
-        public async Task <IPagedList<VehicleModelEntity>> GetVehicleModels(SortParameters sort, FilterParameters filter, PageParameters pagep)
+        public async Task <IPagedList<VehicleModel>> GetVehicleModelsAsync(SortParameters sort, FilterParameters filter, PageParameters pagep)
         {
-            IQueryable<VehicleModelEntity> vehicleModels;
-            using (var ctx = new Context())
-            {
-                
-                if(!string.IsNullOrEmpty(filter.Search))
-                {
-                    vehicleModels =ctx.VehicleModels.Where(v => v.Name.ToUpper().StartsWith(filter.Search.ToUpper())).AsQueryable();
-                }
-                else
-                {
-                    vehicleModels = ctx.VehicleModels.AsQueryable();
-                }
-                if (filter.MakeId != null)
-                {
-                    vehicleModels =
-                        vehicleModels.Where(v => v.VehicleMakeEntity.Id == filter.MakeId).AsQueryable();
-                }
-                //ORDER BY
-                switch (sort.SortBy.ToUpper())
-                {
-                    case "NAME":
-                        vehicleModels = vehicleModels.OrderBy(s => s.Name).AsQueryable();
-                        break;
-                    case "ID":
-                        vehicleModels = vehicleModels.OrderBy(s => s.Id).AsQueryable();
-                        break;
-                    default:
-                        vehicleModels = vehicleModels.OrderBy(s => s.Id).AsQueryable();
-                        break;
-                }
-                //CHOOSING PAGE SIZE (HOW MUCH ELEMENTS TO SHOW ON PAGE)
-                switch (pagep.PageSize)
-                {
-                    case 5:
-                        pagep.PageSize = 5;
-                        break;
-                    case 10:
-                        pagep.PageSize = 10;
-                        break;
-                    case 25:
-                        pagep.PageSize = 25;
-                        break;
-                    case 50:
-                        pagep.PageSize = 50;
-                        break;
-                }
-                //ORDER BY DESCENDING
-                if (sort.SortOrder?.ToUpper()=="DESC")
-                {
-                    vehicleModels = vehicleModels.OrderByDescending(s => s.Name).AsQueryable();
-                    vehicleModels = vehicleModels.OrderByDescending(s => s.Id).AsQueryable();                  
-                };
-                return vehicleModels.ToPagedList(pagep.Page,pagep.PageSize);
-
-            }
+            var modelList = await _vehicleModelRepository.GetVehicleModelsAsync(sort, filter, pagep);
+            var makeVMList = AutoMapper.Mapper.Map<IEnumerable<VehicleModel>>(modelList);
+            return new StaticPagedList<VehicleModel>(makeVMList, modelList.GetMetaData());
         }
         /// <summary>
         /// UPDATE VEHICLE MODEL
         /// </summary>
         /// <param name="updateVehicleModel"></param>
-        public async Task UpdateVehicleModel(VehicleModelEntity updateVehicleModel)
+        public async Task UpdateVehicleModelAsync(VehicleModel updateVehicleModel)
         {
-            using (var ctx = new Context())
-            {
                 if (updateVehicleModel != null)
                 {
-                    ctx.Entry(updateVehicleModel).State = EntityState.Modified;
-                    await ctx.SaveChangesAsync();
+                    await _vehicleModelRepository.UpdateVehicleModelAsync(AutoMapper.Mapper.Map<VehicleModelEntity>(updateVehicleModel));
                 }
-
-            }
         }
         /// <summary>
         /// REMOVE VEHICLE MODEL
         /// </summary>
         /// <param name="vehicleModelDelete"></param>
-        public async Task DeleteVehicleModel(VehicleModelEntity vehicleModelDelete)
+        public async Task DeleteVehicleModelAsync(int id)
         {
-            using (var ctx = new Context())
-            {
-                if (vehicleModelDelete != null)
-                {
-                    ctx.Entry(vehicleModelDelete).State = EntityState.Deleted;
-                    await ctx.SaveChangesAsync();
-                }
-
-            }
+            await _vehicleModelRepository.GetVehicleModelAsync(id);
+            await _vehicleModelRepository.DeleteVehicleModelAsync(id);
         }
     }
 }
