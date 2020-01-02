@@ -23,8 +23,8 @@ namespace Mono.Project.WebAPI.Controllers
         {
             _vehicleModelService = vehicleModelService;
         }
-        //GET: api/getVehicleModels
-        [Route("api/getVehicleModels")]
+        //GET: api/getvehiclemodels
+        [Route("api/getvehiclemodels")]
         public async Task<IHttpActionResult> GetVehicleModelsAsync(string search, int? makeId, string sortOrder = "", int? page = 1, int pageSize = 5, string sortBy = "")
         {
             var filter = new FilterParameters
@@ -50,8 +50,8 @@ namespace Mono.Project.WebAPI.Controllers
             });
         }
 
-        // GET: api/getVehicleModel
-        [Route("api/getVehicleModel")]
+        // GET: api/getvehiclemodel
+        [Route("api/getvehiclemodel")]
         [HttpGet]
         [ResponseType(typeof(VehicleModelVM))]
         public async Task<IHttpActionResult> GetVehicleModelAsync(int? id)
@@ -69,8 +69,8 @@ namespace Mono.Project.WebAPI.Controllers
             return Ok(vehicleModel);
         }
 
-        // PUT: api/updateVehicleModel
-        [Route("api/updateVehicleModel")]
+        // PUT: api/updatevehiclemodel
+        [Route("api/updatevehiclemodel")]
         [HttpPut]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> UpdateVehicleModelAsync(int id, VehicleModelVM vehicleModel)
@@ -92,8 +92,8 @@ namespace Mono.Project.WebAPI.Controllers
         }
 
 
-        // POST: api/createVehicleModel
-        [Route("api/createVehicleModel")]
+        // POST: api/createvehiclemodel
+        [Route("api/createvehiclemodel")]
         [HttpPost]
         [ResponseType(typeof(VehicleModelVM))]
         public async Task<IHttpActionResult> CreateVehicleModelAsync(VehicleModelVM vehicleModel)
@@ -106,8 +106,8 @@ namespace Mono.Project.WebAPI.Controllers
             return Ok(vehicleModel);
         }
 
-        // DELETE: api/deleteVehicleModel
-        [Route("api/deleteVehicleModel")]
+        // DELETE: api/deletevehiclemodel
+        [Route("api/deletevehiclemodel")]
         [HttpDelete]
         [ResponseType(typeof(VehicleModelVM))]
         public async Task<IHttpActionResult> DeleteVehicleModelAsync(int? id)

@@ -23,8 +23,8 @@ namespace Mono.Project.WebAPI.Controllers
         {
             _vehicleMakeService = vehicleMakeService;
         }
-        // GET: api/getVehicleMakes
-        [Route("api/getVehicleMakes")]
+        // GET: api/getvehiclemakes
+        [Route("api/getvehiclemakes")]
         public async Task<IHttpActionResult> GetVehicleMakesAsync(string search, int? page = 1, int pageSize = 5, string sortOrder = "", string sortBy = "")
         {
             var filter = new FilterParameters
@@ -46,8 +46,8 @@ namespace Mono.Project.WebAPI.Controllers
             return Ok(new { 
             data = makeVMList,paggingInfo = vmlist.GetMetaData()});
         }
-        // GET: api/getmake
-        [Route("api/getVehicleMake")]
+        // GET: api/getvehiclemake
+        [Route("api/getvehiclemake")]
         [HttpGet]
         [ResponseType(typeof(VehicleMakeVM))]
         public async Task<IHttpActionResult> GetVehicleMakeAsync(int? id)
@@ -65,8 +65,8 @@ namespace Mono.Project.WebAPI.Controllers
             return Ok(vehicleMake);
         }
 
-        // PUT: api/updatemake
-        [Route("api/updateVehicleMake")]
+        // PUT: api/updatevehiclemake
+        [Route("api/updatevehiclemake")]
         [HttpPut]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> UpdateVehicleMakeAsync(int id, VehicleMakeVM vehicleMake)
@@ -86,8 +86,8 @@ namespace Mono.Project.WebAPI.Controllers
             }
             return Ok(vehicleMake);
         }
-        // POST: api/createmake
-        [Route("api/createVehicleMake")]
+        // POST: api/createvehiclemake
+        [Route("api/createvehiclemake")]
         [HttpPost]
         [ResponseType(typeof(VehicleMakeVM))]
         public async Task<IHttpActionResult> CreateVehicleMakeAsync(VehicleMakeVM vehicleMake)
@@ -99,8 +99,8 @@ namespace Mono.Project.WebAPI.Controllers
             }
             return Ok(vehicleMake);
         }
-        // DELETE: api/deletemake
-        [Route("api/deleteVehicleMake")]
+        // DELETE: api/deletevehiclemake
+        [Route("api/deletevehiclemake")]
         [HttpDelete]
         [ResponseType(typeof(VehicleMakeVM))]
         public async Task<IHttpActionResult> DeleteVehicleMakeAsync(int id)
