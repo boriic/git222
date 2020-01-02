@@ -14,5 +14,6 @@ namespace MonoProject.Model
 
         public int VehicleMakeId { get; set; }
         public IVehicleMake VehicleMake { get; set; }
+
     }
 }

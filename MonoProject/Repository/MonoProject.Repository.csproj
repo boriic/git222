@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.1.3" />
+    <PackageReference Include="Ninject" Version="3.3.4" />
+    <PackageReference Include="Ninject.Extensions.Factory" Version="3.3.2" />
+    <PackageReference Include="Ninject.MVC5" Version="3.3.0" />
+    <PackageReference Include="Ninject.Web.WebApi.WebHost" Version="3.3.0" />
     <PackageReference Include="PagedList" Version="1.17.0" />
     <PackageReference Include="PagedList.Mvc" Version="4.5.0" />
   </ItemGroup>
@@ -13,12 +18,6 @@
     <ProjectReference Include="..\DAL\MonoProject.DAL.csproj" />
     <ProjectReference Include="..\MonoProject.Common\MonoProject.Common.csproj" />
     <ProjectReference Include="..\MonoProject.Repository.Common\MonoProject.Repository.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\EntityFramework.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

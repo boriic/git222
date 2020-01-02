@@ -1,3 +1,4 @@
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.WebAPI\obj\Debug\MonoProject.WebAPI.csprojAssemblyReference.cache
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.WebAPI\bin\MonoProject.WebAPI.dll.config
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.WebAPI\bin\MonoProject.WebAPI.dll
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.WebAPI\bin\MonoProject.WebAPI.pdb
@@ -120,7 +121,6 @@ C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.WebAPI\bin\System.Web.
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.WebAPI\bin\System.Web.WebPages.Razor.xml
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.WebAPI\bin\Antlr3.Runtime.pdb
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.WebAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.WebAPI\obj\Debug\MonoProject.WebAPI.csprojAssemblyReference.cache
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.WebAPI\obj\Debug\MonoProject.WebAPI.csproj.CopyComplete
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.WebAPI\obj\Debug\MonoProject.WebAPI.dll
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.WebAPI\obj\Debug\MonoProject.WebAPI.pdb

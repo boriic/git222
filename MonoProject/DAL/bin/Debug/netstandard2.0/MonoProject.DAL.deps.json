@@ -9,56 +9,29 @@
     ".NETStandard,Version=v2.0/": {
       "MonoProject.DAL/1.0.0": {
         "dependencies": {
-          "EntityFramework": "6.3.0",
-          "NETStandard.Library": "2.0.3",
-          "EntityFramework.Reference": "6.0.0.0"
+          "EntityFramework": "6.1.3",
+          "NETStandard.Library": "2.0.3"
         },
         "runtime": {
           "MonoProject.DAL.dll": {}
         }
       },
-      "EntityFramework/6.3.0": {},
+      "EntityFramework/6.1.3": {
+        "runtime": {
+          "lib/net45/EntityFramework.SqlServer.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.1.40302.0"
+          },
+          "lib/net45/EntityFramework.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.1.40302.0"
+          }
+        }
+      },
       "Microsoft.NETCore.Platforms/1.1.0": {},
       "NETStandard.Library/2.0.3": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
-        }
-      },
-      "EntityFramework.Reference/6.0.0.0": {
-        "runtime": {
-          "EntityFramework.dll": {
-            "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.2.61023.0"
-          }
-        },
-        "resources": {
-          "de/EntityFramework.resources.dll": {
-            "locale": "de"
-          },
-          "es/EntityFramework.resources.dll": {
-            "locale": "es"
-          },
-          "fr/EntityFramework.resources.dll": {
-            "locale": "fr"
-          },
-          "it/EntityFramework.resources.dll": {
-            "locale": "it"
-          },
-          "ja/EntityFramework.resources.dll": {
-            "locale": "ja"
-          },
-          "ko/EntityFramework.resources.dll": {
-            "locale": "ko"
-          },
-          "ru/EntityFramework.resources.dll": {
-            "locale": "ru"
-          },
-          "zh-Hans/EntityFramework.resources.dll": {
-            "locale": "zh-Hans"
-          },
-          "zh-Hant/EntityFramework.resources.dll": {
-            "locale": "zh-Hant"
-          }
         }
       }
     }
@@ -69,12 +42,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "EntityFramework/6.3.0": {
+    "EntityFramework/6.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-mEvhoXscTyLFMcnbLzKlbWdx6N8fCY2IMe4drjUTMFqOqI4KThnTPXr1m50oXDJAn5PvCy2e90IcwN/OxkJUjg==",
-      "path": "entityframework/6.3.0",
-      "hashPath": "entityframework.6.3.0.nupkg.sha512"
+      "sha512": "sha512-2xzFHAF3VVdmTR3//MygtQpwfbDjeaq+nQwCcokLzen7MKHOojPaxNPQPa4diHY1QtcR7zlHAJHNRqPB7W2Syw==",
+      "path": "entityframework/6.1.3",
+      "hashPath": "entityframework.6.1.3.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",
@@ -89,11 +62,6 @@
       "sha512": "sha512-st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
-    },
-    "EntityFramework.Reference/6.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }

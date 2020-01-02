@@ -11,7 +11,6 @@ namespace MonoProject.Model
         public string Name { get; set; }
         public string Abrv { get; set; }
 
-
         public virtual List<IVehicleModel> VehicleModels { get; set; }
         public VehicleMake()
         {

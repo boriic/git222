@@ -40,7 +40,7 @@
           "dependencies": {
             "EntityFramework": {
               "target": "Package",
-              "version": "[6.3.0, )"
+              "version": "[6.1.3, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",
@@ -159,6 +159,10 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
+            "EntityFramework": {
+              "target": "Package",
+              "version": "[6.1.3, )"
+            },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",
@@ -228,11 +232,31 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
+            "EntityFramework": {
+              "target": "Package",
+              "version": "[6.1.3, )"
+            },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
+            },
+            "Ninject": {
+              "target": "Package",
+              "version": "[3.3.4, )"
+            },
+            "Ninject.Extensions.Factory": {
+              "target": "Package",
+              "version": "[3.3.2, )"
+            },
+            "Ninject.MVC5": {
+              "target": "Package",
+              "version": "[3.3.0, )"
+            },
+            "Ninject.Web.WebApi.WebHost": {
+              "target": "Package",
+              "version": "[3.3.0, )"
             },
             "PagedList": {
               "target": "Package",

@@ -15,7 +15,7 @@ using System.Web.Http.Description;
 
 namespace Mono.Project.WebAPI.Controllers
 {
-    [RoutePrefix("VehicleMake")]
+    [RoutePrefix("vehiclemake")]
     public class VehicleMakeController : ApiController
     {
         private readonly IVehicleMakeService _vehicleMakeService;
@@ -23,8 +23,8 @@ namespace Mono.Project.WebAPI.Controllers
         {
             _vehicleMakeService = vehicleMakeService;
         }
-        // GET: api/GetVehicleMakes
-        [Route("api/GetVehicleMakesAsync")]
+        // GET: api/getVehicleMakes
+        [Route("api/getVehicleMakes")]
         public async Task<IHttpActionResult> GetVehicleMakesAsync(string search, int? page = 1, int pageSize = 5, string sortOrder = "", string sortBy = "")
         {
             var filter = new FilterParameters
@@ -46,8 +46,8 @@ namespace Mono.Project.WebAPI.Controllers
             return Ok(new { 
             data = makeVMList,paggingInfo = vmlist.GetMetaData()});
         }
-        // GET: api/VehicleMake/5
-        [Route("api/GetVehicleMakeAsync")]
+        // GET: api/getmake
+        [Route("api/getVehicleMake")]
         [HttpGet]
         [ResponseType(typeof(VehicleMakeVM))]
         public async Task<IHttpActionResult> GetVehicleMakeAsync(int? id)
@@ -65,8 +65,8 @@ namespace Mono.Project.WebAPI.Controllers
             return Ok(vehicleMake);
         }
 
-        // PUT: api/VehicleMake/5
-        [Route("api/UpdateVehicleMakeAsync")]
+        // PUT: api/updatemake
+        [Route("api/updateVehicleMake")]
         [HttpPut]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> UpdateVehicleMakeAsync(int id, VehicleMakeVM vehicleMake)
@@ -86,8 +86,8 @@ namespace Mono.Project.WebAPI.Controllers
             }
             return Ok(vehicleMake);
         }
-        // POST: api/VehicleMake
-        [Route("api/CreateVehicleMakeAsync")]
+        // POST: api/createmake
+        [Route("api/createVehicleMake")]
         [HttpPost]
         [ResponseType(typeof(VehicleMakeVM))]
         public async Task<IHttpActionResult> CreateVehicleMakeAsync(VehicleMakeVM vehicleMake)
@@ -99,8 +99,8 @@ namespace Mono.Project.WebAPI.Controllers
             }
             return Ok(vehicleMake);
         }
-        // DELETE: api/VehicleMake/5
-        [Route("api/DeleteVehicleMakeAsync")]
+        // DELETE: api/deletemake
+        [Route("api/deleteVehicleMake")]
         [HttpDelete]
         [ResponseType(typeof(VehicleMakeVM))]
         public async Task<IHttpActionResult> DeleteVehicleMakeAsync(int id)

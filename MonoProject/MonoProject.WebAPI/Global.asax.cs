@@ -1,5 +1,4 @@
 ﻿using Mono.Project.WebAPI.Models;
-using Mono.Project.WebAPI.Module;
 using MonoProject.DAL.Context;
 using MonoProject.DAL.Entities;
 using MonoProject.Model;
@@ -19,6 +18,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using MonoProject.Repository.Module;
+using MonoProject.Service.Module;
 
 namespace Mono.Project.WebAPI
 {
@@ -28,7 +29,11 @@ namespace Mono.Project.WebAPI
         protected override IKernel CreateKernel()
         {
             // Pass in your Module setup
-            var kernel = new StandardKernel(new MyModule());
+            var kernel = new StandardKernel(
+                new RepositoryModule(),
+                new ServiceModule(),
+                new UnitofWorkModule()
+                );
             LocalKernel = kernel;
 
             return kernel;
@@ -104,7 +109,7 @@ namespace Mono.Project.WebAPI
                     dest => dest.VehicleMake, opt => opt.MapFrom(
                         src => src.VehicleMakeVM));
                 x.CreateMap<ShortVehicleMakeVM, VehicleMake>().ReverseMap();
-                x.CreateMap<ShortVehicleMakeVM, IVehicleMake>().ReverseMap();
+                x.CreateMap<ShortVehicleMakeVM, IVehicleMake>().ReverseMap(); 
             });
             GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
