@@ -43,8 +43,11 @@ namespace Mono.Project.WebAPI.Controllers
             };
             var vmlist = await _vehicleMakeService.GetVehicleMakesAsync(sort, filter, pagep);
             var makeVMList = AutoMapper.Mapper.Map<IEnumerable<VehicleMakeVM>>(vmlist);
-            return Ok(new { 
-            data = makeVMList,paggingInfo = vmlist.GetMetaData()});
+            return Ok(new
+            {
+                Data = makeVMList,
+                PaggingInfo = vmlist.GetMetaData()
+            });
         }
         // GET: api/getvehiclemake
         [Route("api/getvehiclemake")]
@@ -95,7 +98,6 @@ namespace Mono.Project.WebAPI.Controllers
             if (ModelState.IsValid)
             {
                 await _vehicleMakeService.AddVehicleMakeAsync(Mapper.Map<VehicleMake>(vehicleMake));
-                return CreatedAtRoute("DefaultApi", new { id = vehicleMake.Id }, vehicleMake);
             }
             return Ok(vehicleMake);
         }

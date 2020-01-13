@@ -1,4 +1,5 @@
-﻿using MonoProject.Common.Parameters_Models;
+﻿using MonoProject.Common.Interfaces;
+using MonoProject.Common.Parameters_Models;
 using MonoProject.DAL.Context;
 using MonoProject.DAL.Entities;
 using MonoProject.Repository.Common;
@@ -15,12 +16,10 @@ namespace MonoProject.Repository
     public class VehicleModelRepository : IVehicleModelRepository
     {
         IQueryable<VehicleModelEntity> vehicleModels;
-        private readonly Repository<VehicleModelEntity> repository;
-        private readonly Repository<VehicleMakeEntity> Repository;
-        public VehicleModelRepository(Repository<VehicleModelEntity> repository, Repository<VehicleMakeEntity> Repository)
+        private readonly IRepository<VehicleModelEntity> repository;
+        public VehicleModelRepository(IRepository<VehicleModelEntity> repository)
         {
             this.repository = repository;
-            this.Repository = Repository;
         }
         /// <summary>
         /// ADD VEHICLE MODEL
@@ -54,7 +53,7 @@ namespace MonoProject.Repository
         {
             await repository.Update(updateVehicleModel);
         }
-        public async Task<IPagedList<VehicleModelEntity>> GetVehicleModelsAsync(SortParameters sort, FilterParameters filter, PageParameters pagep)
+        public async Task<IPagedList<VehicleModelEntity>> GetVehicleModelsAsync(ISortParameters sort, IFilterParameters filter, IPageParameters pagep)
         {
             if (!string.IsNullOrEmpty(filter.Search))
             {

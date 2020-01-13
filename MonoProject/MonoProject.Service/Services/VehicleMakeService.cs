@@ -13,16 +13,17 @@ using MonoProject.Repository;
 using MonoProject.Service.Common;
 using MonoProject.Common.Parameters_Models;
 using MonoProject.Model;
+using MonoProject.Common.Interfaces;
 
 namespace MonoProject.Service
 {
 
     public class VehicleMakeService : IVehicleMakeService
     {
-        private readonly IVehicleMakeRepository _vehicleMakeRepository;
+        private readonly IVehicleMakeRepository _repository;
         public VehicleMakeService(IVehicleMakeRepository vehicleMakeRepository)
         {
-            _vehicleMakeRepository = vehicleMakeRepository;
+            _repository = vehicleMakeRepository;
         }
         /// <summary>
         /// ADDING VEHICLE MAKE
@@ -31,7 +32,7 @@ namespace MonoProject.Service
 
         public async Task AddVehicleMakeAsync(VehicleMake vehicleMake)
         {
-            await _vehicleMakeRepository.AddVehicleMakeAsync(AutoMapper.Mapper.Map<VehicleMakeEntity>(vehicleMake));
+            await _repository.AddVehicleMakeAsync(AutoMapper.Mapper.Map<VehicleMakeEntity>(vehicleMake));
         }
         /// <summary>
         /// READING VEHICLE MAKE
@@ -39,13 +40,13 @@ namespace MonoProject.Service
         /// <param name="id"></param>
         public async Task<VehicleMake> GetVehicleMakeAsync(int id)
         {
-            return AutoMapper.Mapper.Map<VehicleMake>(await _vehicleMakeRepository.GetVehicleMakeAsync(id));
+            return AutoMapper.Mapper.Map<VehicleMake>(await _repository.GetVehicleMakeAsync(id));
 
         }
 
-        public async Task<IPagedList<VehicleMake>> GetVehicleMakesAsync(SortParameters sort, FilterParameters filter, PageParameters pagep)
+        public async Task<IPagedList<VehicleMake>> GetVehicleMakesAsync(ISortParameters sort, IFilterParameters filter, IPageParameters pagep)
         {
-            var makeList = await _vehicleMakeRepository.GetVehicleMakesAsync(sort, filter, pagep);
+            var makeList = await _repository.GetVehicleMakesAsync(sort, filter, pagep);
             var makeVMList = AutoMapper.Mapper.Map<IEnumerable<VehicleMake>>(makeList);
             return new StaticPagedList<VehicleMake>(makeVMList, makeList.GetMetaData());
         }
@@ -59,7 +60,7 @@ namespace MonoProject.Service
         {
             if (UpdateVehicleMake != null)
             {
-                await _vehicleMakeRepository.UpdateVehicleMakeAsync(AutoMapper.Mapper.Map<VehicleMakeEntity>(UpdateVehicleMake));
+                await _repository.UpdateVehicleMakeAsync(AutoMapper.Mapper.Map<VehicleMakeEntity>(UpdateVehicleMake));
             }
         }
         /// <summary>
@@ -68,7 +69,7 @@ namespace MonoProject.Service
 
         public async Task DeleteVehicleMakeAsync(int id)
         {
-            await _vehicleMakeRepository.DeleteVehicleMakeAsync(id);
+            await _repository.DeleteVehicleMakeAsync(id);
         }
     }
 

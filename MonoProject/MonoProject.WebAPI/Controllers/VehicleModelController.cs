@@ -45,8 +45,8 @@ namespace Mono.Project.WebAPI.Controllers
             var vmlist = await _vehicleModelService.GetVehicleModelsAsync(sort, filter, pagep);
             return Ok(new
             {
-                data = vmlist,
-                paggingInfo = vmlist.GetMetaData()
+                Data = vmlist,
+                PaggingInfo = vmlist.GetMetaData()
             });
         }
 
@@ -101,7 +101,6 @@ namespace Mono.Project.WebAPI.Controllers
             if (ModelState.IsValid)
             {
                 await _vehicleModelService.AddVehicleModelAsync(Mapper.Map<VehicleModel>(vehicleModel));
-                return CreatedAtRoute("DefaultApi", new { id = vehicleModel.Id }, vehicleModel);
             }
             return Ok(vehicleModel);
         }

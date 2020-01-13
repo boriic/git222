@@ -1,4 +1,5 @@
 ﻿using MonoProject.Common.Parameters_Models;
+using MonoProject.Common.Interfaces;
 using MonoProject.DAL.Context;
 using MonoProject.DAL.Entities;
 using MonoProject.Repository.Common;
@@ -16,9 +17,9 @@ namespace MonoProject.Repository
     {
         IQueryable<VehicleMakeEntity> vehicleMakes;
 
-        private readonly Repository<VehicleMakeEntity> repository;
+        private readonly IRepository<VehicleMakeEntity> repository;
 
-        public VehicleMakeRepository (Repository<VehicleMakeEntity> repository)
+        public VehicleMakeRepository (IRepository<VehicleMakeEntity> repository)
         {
             this.repository = repository;
         }
@@ -59,7 +60,7 @@ namespace MonoProject.Repository
         {
             await repository.Update(UpdateVehicleMake);
         }
-        public async Task<IPagedList<VehicleMakeEntity>> GetVehicleMakesAsync(SortParameters sort, FilterParameters filter, PageParameters pagep)
+        public async Task<IPagedList<VehicleMakeEntity>> GetVehicleMakesAsync(ISortParameters sort, IFilterParameters filter, IPageParameters pagep)
         {
             
             //Search

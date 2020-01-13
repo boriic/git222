@@ -1,4 +1,5 @@
-﻿using MonoProject.Common.Parameters_Models;
+﻿using MonoProject.Common.Interfaces;
+using MonoProject.Common.Parameters_Models;
 using MonoProject.DAL.Entities;
 using PagedList;
 using System;
@@ -12,7 +13,7 @@ namespace MonoProject.Repository.Common
     {
         Task AddVehicleMakeAsync(VehicleMakeEntity vehicleMake);
         Task<VehicleMakeEntity> GetVehicleMakeAsync(int id);
-        Task<IPagedList<VehicleMakeEntity>> GetVehicleMakesAsync(SortParameters sort, FilterParameters filter, PageParameters pagep);
+        Task<IPagedList<VehicleMakeEntity>> GetVehicleMakesAsync(ISortParameters sort, IFilterParameters filter, IPageParameters pagep);
         Task UpdateVehicleMakeAsync(VehicleMakeEntity updateVehicleMake);
         Task DeleteVehicleMakeAsync(int id);
     }
