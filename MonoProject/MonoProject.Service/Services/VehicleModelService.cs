@@ -6,13 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using MonoProject.DAL.Entities;
-using MonoProject.DAL.Context;
 using MonoProject.Service.Common;
 using MonoProject.Common.Parameters_Models;
 using MonoProject.Repository.Common;
 using MonoProject.Model;
 using MonoProject.Common.Interfaces;
+using MonoProject.DAL.Entities;
 
 namespace MonoProject.Service
 {

@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.29409.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoProject.Service", "MonoProject.Service\MonoProject.Service.csproj", "{DDCCA44D-7309-4224-BF54-FB4448336DCF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonoProject.Repository", "Repository\MonoProject.Repository.csproj", "{9C28D699-5094-495F-B0FF-0B258A4E46B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonoProject.Repository", "MonoProject.Repository\MonoProject.Repository.csproj", "{9C28D699-5094-495F-B0FF-0B258A4E46B3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonoProject.DAL", "DAL\MonoProject.DAL.csproj", "{EE7E9AE8-0CE2-4783-BD77-80AB6EFD9492}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonoProject.DAL", "MonoProject.DAL\MonoProject.DAL.csproj", "{EE7E9AE8-0CE2-4783-BD77-80AB6EFD9492}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonoProject.Repository.Common", "MonoProject.Repository.Common\MonoProject.Repository.Common.csproj", "{50E23775-153F-4DBB-B12F-7E0652EBA3B5}"
 EndProject

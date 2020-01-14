@@ -251,7 +251,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DAL\MonoProject.DAL.csproj">
+    <ProjectReference Include="..\MonoProject.DAL\MonoProject.DAL.csproj">
       <Project>{ee7e9ae8-0ce2-4783-bd77-80ab6efd9492}</Project>
       <Name>MonoProject.DAL</Name>
     </ProjectReference>
@@ -279,7 +279,7 @@
       <Project>{ddcca44d-7309-4224-bf54-fb4448336dcf}</Project>
       <Name>MonoProject.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Repository\MonoProject.Repository.csproj">
+    <ProjectReference Include="..\MonoProject.Repository\MonoProject.Repository.csproj">
       <Project>{9c28d699-5094-495f-b0ff-0b258a4e46b3}</Project>
       <Name>MonoProject.Repository</Name>
     </ProjectReference>

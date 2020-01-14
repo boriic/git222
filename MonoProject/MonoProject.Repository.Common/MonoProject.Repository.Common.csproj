@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DAL\MonoProject.DAL.csproj" />
     <ProjectReference Include="..\MonoProject.Common\MonoProject.Common.csproj" />
+    <ProjectReference Include="..\MonoProject.DAL\MonoProject.DAL.csproj" />
   </ItemGroup>
 
 </Project>

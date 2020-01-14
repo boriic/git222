@@ -1,7 +1,0 @@
-C:\Users\Filip\Documents\Projects\MonoProject\DAL\bin\Debug\netstandard2.0\MonoProject.DAL.deps.json
-C:\Users\Filip\Documents\Projects\MonoProject\DAL\bin\Debug\netstandard2.0\MonoProject.DAL.dll
-C:\Users\Filip\Documents\Projects\MonoProject\DAL\obj\Debug\netstandard2.0\MonoProject.DAL.AssemblyInfoInputs.cache
-C:\Users\Filip\Documents\Projects\MonoProject\DAL\obj\Debug\netstandard2.0\MonoProject.DAL.AssemblyInfo.cs
-C:\Users\Filip\Documents\Projects\MonoProject\DAL\bin\Debug\netstandard2.0\MonoProject.DAL.pdb
-C:\Users\Filip\Documents\Projects\MonoProject\DAL\obj\Debug\netstandard2.0\MonoProject.DAL.dll
-C:\Users\Filip\Documents\Projects\MonoProject\DAL\obj\Debug\netstandard2.0\MonoProject.DAL.pdb

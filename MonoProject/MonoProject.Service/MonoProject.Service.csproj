@@ -131,7 +131,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DAL\MonoProject.DAL.csproj">
+    <ProjectReference Include="..\MonoProject.DAL\MonoProject.DAL.csproj">
       <Project>{ee7e9ae8-0ce2-4783-bd77-80ab6efd9492}</Project>
       <Name>MonoProject.DAL</Name>
     </ProjectReference>
