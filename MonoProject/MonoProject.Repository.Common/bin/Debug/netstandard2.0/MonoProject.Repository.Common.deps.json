@@ -49,14 +49,6 @@
         "runtime": {
           "MonoProject.Common.dll": {}
         }
-      },
-      "MonoProject.DAL/1.0.0": {
-        "dependencies": {
-          "EntityFramework": "6.1.3"
-        },
-        "runtime": {
-          "MonoProject.DAL.dll": {}
-        }
       }
     }
   },
@@ -95,11 +87,6 @@
       "hashPath": "pagedlist.1.17.0.nupkg.sha512"
     },
     "MonoProject.Common/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "MonoProject.DAL/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

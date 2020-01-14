@@ -5,3 +5,4 @@ C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Common\obj\Debug\netst
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Common\obj\Debug\netstandard2.0\MonoProject.Common.AssemblyInfo.cs
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Common\obj\Debug\netstandard2.0\MonoProject.Common.dll
 C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Common\obj\Debug\netstandard2.0\MonoProject.Common.pdb
+C:\Users\Filip\Documents\Projects\MonoProject\MonoProject.Common\obj\Debug\netstandard2.0\MonoProject.Common.csprojAssemblyReference.cache

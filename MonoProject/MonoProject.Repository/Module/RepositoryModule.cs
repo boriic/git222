@@ -1,4 +1,5 @@
-﻿using MonoProject.Repository.Common;
+﻿using MonoProject.DAL.Entities;
+using MonoProject.Repository.Common;
 using Ninject.Extensions.Factory;
 using Ninject.Modules;
 using System;
@@ -13,6 +14,8 @@ namespace MonoProject.Repository.Module
         {
             Bind<IVehicleMakeRepository>().To<VehicleMakeRepository>();
             Bind<IVehicleModelRepository>().To<VehicleModelRepository>();
+            Bind<IRepository<VehicleMakeEntity>>().To<Repository<VehicleMakeEntity>>();
+            Bind<IRepository<VehicleModelEntity>>().To<Repository<VehicleModelEntity>>();
         }
     }
 }
